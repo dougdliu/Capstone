@@ -1,1 +1,10 @@
 C:\Users\ashly\Desktop\CSE 424\Capstone_v1\Capstone_v1\bin\Debug\Capstone_v1.exe.config
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\bin\Debug\Capstone_v1.exe.config
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\bin\Debug\Capstone_v1.exe
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\bin\Debug\Capstone_v1.pdb
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.csprojResolveAssemblyReference.cache
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Form1.resources
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Properties.Resources.resources
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.csproj.GenerateResource.Cache
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.exe
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.pdb

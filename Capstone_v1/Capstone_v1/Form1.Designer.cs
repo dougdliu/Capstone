@@ -108,7 +108,7 @@
             this.label4.Size = new System.Drawing.Size(85, 20);
             this.label4.TabIndex = 7;
             this.label4.Text = "EIS Inputs";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+           // this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // button2
             // 
