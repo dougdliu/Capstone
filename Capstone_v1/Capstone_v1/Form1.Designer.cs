@@ -56,6 +56,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(303, 26);
             this.textBox2.TabIndex = 1;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // textBox3
             // 
@@ -99,6 +100,7 @@
             this.button1.TabIndex = 6;
             this.button1.Text = "Run Test";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label4
             // 
@@ -108,7 +110,6 @@
             this.label4.Size = new System.Drawing.Size(85, 20);
             this.label4.TabIndex = 7;
             this.label4.Text = "EIS Inputs";
-           // this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // button2
             // 
