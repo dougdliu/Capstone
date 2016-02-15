@@ -82,10 +82,11 @@ namespace Capstone_v1
                 this.path = pathString;
                 using (System.IO.StreamWriter file =new System.IO.StreamWriter(@pathString))
                 {
+                    file.WriteLine("Frequency Gain Phase Change");
                     for(int i = 0; i< 100; i++)
                     {
-                        file.WriteLine(i);
-                        file.WriteLine(i);
+                        file.WriteLine(i + "\t" + i*i + "\t" + i*i*i);
+                        
                     }
                 }
                 test_complete = true;
@@ -152,7 +153,11 @@ namespace Capstone_v1
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            if (test_complete == true)
+            {
+                Form4 frm = new Form4(path);
+                frm.Show();
+            }
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
