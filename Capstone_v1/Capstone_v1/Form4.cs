@@ -33,13 +33,13 @@ namespace Capstone_v1
         private void button1_Click(object sender, EventArgs e)
         {
             string[] data = System.IO.File.ReadAllLines(@path); // read all lines in the file
-            double[] data2 = new double[data.Length-1]; // make the data from the text file doubles (convert string)
-            double[] data3 = new double[data.Length-1];
+            double[] data2 = new double[data.Length-6]; // make the data from the text file doubles (convert string)
+            double[] data3 = new double[data.Length-6];
 
-            for (int i = 0; i < data.Length-1; i++)
+            for (int i = 0; i < data.Length-6; i++)
             {
-                data2[i] = Convert.ToDouble(data[i+1].Split('\t')[0]);
-                data3[i] = Convert.ToDouble(data[i+1].Split('\t')[2]);
+                data2[i] = Convert.ToDouble(data[i+6].Split('\t')[0]);
+                data3[i] = Convert.ToDouble(data[i+6].Split('\t')[2]);
             }
             
             for (int i = 1; i < data2.Length - 1; i++)

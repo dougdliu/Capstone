@@ -53,6 +53,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox1
@@ -75,6 +77,7 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(367, 205);
             this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(303, 26);
             this.textBox3.TabIndex = 2;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
@@ -108,7 +111,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(367, 337);
+            this.button1.Location = new System.Drawing.Point(480, 313);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(176, 41);
             this.button1.TabIndex = 6;
@@ -127,7 +130,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(235, 421);
+            this.button2.Location = new System.Drawing.Point(220, 421);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(176, 53);
             this.button2.TabIndex = 8;
@@ -165,6 +168,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "Logarithmic (decades/s)",
@@ -186,7 +190,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(407, 381);
+            this.label8.Location = new System.Drawing.Point(402, 374);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(0, 20);
             this.label8.TabIndex = 14;
@@ -228,7 +232,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(267, 266);
+            this.label11.Location = new System.Drawing.Point(216, 260);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(80, 20);
             this.label11.TabIndex = 19;
@@ -282,11 +286,29 @@
             this.label16.TabIndex = 24;
             this.label16.Text = "(-)10V-(+)10V";
             // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(220, 328);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(170, 26);
+            this.textBox6.TabIndex = 25;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(216, 305);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(137, 20);
+            this.label17.TabIndex = 26;
+            this.label17.Text = "Output File Name:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(840, 517);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.textBox6);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
@@ -346,6 +368,8 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label17;
     }
 }
 

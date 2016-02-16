@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,19 +29,24 @@ namespace Capstone_v1
             }
             else
             {
-                try
+                //String fileName= "results.txt";
+                //String pathString = System.IO.Path.Combine(textBox1.Text, fileName);
+                //try
+                if(Directory.Exists(textBox1.Text))
                 {
-                    String fileName= "results.txt";
-                    String pathString = System.IO.Path.Combine(textBox1.Text, fileName);
-                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
+                    
+                    /*using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
                     {
                         file.WriteLine("Test");
-                    }
+                        File.Delete(pathString);
+                    }*/
+
                     label2.Text = "";
                     Form1 frm = new Form1(textBox1.Text);
                     frm.Show();
                 }
-                catch (Exception)
+                //catch (Exception)
+                else
                 {
                     label2.ForeColor = System.Drawing.Color.Red;
                     label2.Text = "Please enter a valid workspace";

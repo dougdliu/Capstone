@@ -176,6 +176,7 @@ namespace Capstone_v1
                 label7.Text = "kHz/s";
                 label15.Text = "0-1000 kHz/s";
                 combo_ready = true;
+                textBox3.ReadOnly = false;
                 this.sweep_type = true;
             }
             else if(comboBox1.SelectedIndex == 0)
@@ -184,10 +185,12 @@ namespace Capstone_v1
                 label7.Text = "decades/s";
                 label15.Text = "0-1 decades/s";
                 combo_ready = true;
+                textBox3.ReadOnly = false;
                 this.sweep_type = false;
             }
             else
             {
+                textBox3.ReadOnly = true;
                 label7.ForeColor = System.Drawing.Color.Red;
                 label7.Text = "Please select a type";
             }
@@ -261,7 +264,7 @@ namespace Capstone_v1
         {
             try
             {
-                string offset_str = textBox2.Text;
+                string offset_str = textBox5.Text;
                 if (offset_str != "")
                 {
                     this.offset = Double.Parse(offset_str, NumberStyles.AllowLeadingSign);
@@ -295,7 +298,7 @@ namespace Capstone_v1
 
         /*-----------------------START_TEST-------------------------------*/
 
-        //Start Test Button Handling
+        //Start Test Button Handling COMMUNICATION HAPPENS HERE
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -308,14 +311,19 @@ namespace Capstone_v1
                 frequency_ready = false;
             }
 
-            if (amplitude_ready == true && frequency_ready == true && sweep_ready == true && offset_ready == true)
+            if (amplitude_ready == true && frequency_ready == true && sweep_ready == true && offset_ready == true && textBox6.Text != "")
             {
-                String fileName = "results.txt";
+                /* Replace File Stuff With Communication */
+                String fileName = textBox6.Text;
                 String pathString = System.IO.Path.Combine(workspace, fileName);
                 this.path = pathString;
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
                 {
-                    //file.WriteLine(frequency_start + ", " + frequency_end + ", " + amplitude + ", " + sweep + ", " + offset);
+                    file.WriteLine("Start Frequency: " + frequency_start);
+                    file.WriteLine("End Frequency: " + frequency_end); 
+                    file.WriteLine("Amplitude: " + amplitude);
+                    file.WriteLine("Sweep Rate: " + sweep);
+                    file.WriteLine("DC Offset: " + offset);
                     file.WriteLine("Frequency Gain Phase Change");
                     for (int i = 0; i < 100; i++)
                     {
