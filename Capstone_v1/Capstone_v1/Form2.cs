@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/*------------------------Workspace Handling---------------------------*/
+
 namespace Capstone_v1
 {
     public partial class Form2 : Form
@@ -26,13 +28,26 @@ namespace Capstone_v1
             }
             else
             {
-                Form1 frm = new Form1(textBox1.Text);
-                frm.Show();
+                try
+                {
+                    String fileName= "results.txt";
+                    String pathString = System.IO.Path.Combine(textBox1.Text, fileName);
+                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
+                    {
+                        file.WriteLine("Test");
+                    }
+                    label2.Text = "";
+                    Form1 frm = new Form1(textBox1.Text);
+                    frm.Show();
+                }
+                catch (Exception)
+                {
+                    label2.ForeColor = System.Drawing.Color.Red;
+                    label2.Text = "Please enter a valid workspace";
+                }
                 
             }
             
-            
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -41,6 +56,7 @@ namespace Capstone_v1
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
+                label2.Text = "";
                 textBox1.Text = folderBrowserDialog1.SelectedPath; // for the name and path of the file to be read
             }
             
