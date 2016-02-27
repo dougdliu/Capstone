@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -315,29 +316,71 @@ namespace Capstone_v1
             {
                 /* Replace File Stuff With Communication */
                 String fileName = textBox6.Text;
-                String pathString = System.IO.Path.Combine(workspace, fileName);
-                this.path = pathString;
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
+                if(fileName.EndsWith(".txt")||fileName.EndsWith(".csv"))
                 {
-                    file.WriteLine("Start Frequency: " + frequency_start);
-                    file.WriteLine("End Frequency: " + frequency_end); 
-                    file.WriteLine("Amplitude: " + amplitude);
-                    file.WriteLine("Sweep Rate: " + sweep);
-                    file.WriteLine("DC Offset: " + offset);
-                    file.WriteLine("Frequency Gain Phase Change");
-                    for (int i = 0; i < 100; i++)
+                    label17.ForeColor = System.Drawing.Color.Black;
+                    label17.Text = "Output File Name:";
+                    char[] invalid = Path.GetInvalidFileNameChars();
+                    bool contains_invalid=false;
+                    for (int i = 0; i < invalid.Length; i++)
                     {
-                        file.WriteLine(i + "\t" + i * i + "\t" + i * i * i);
-
+                        String c = invalid[i].ToString();
+                        if(fileName.Contains(c))
+                        {
+                            contains_invalid = true;
+                        }
                     }
+                    if (contains_invalid == false)
+                        {
+                            label17.ForeColor = System.Drawing.Color.Black;
+                            label17.Text = "Output File Name:";
+                            String pathString = System.IO.Path.Combine(workspace, fileName);
+                            if (!File.Exists(pathString))
+                            {
+                                label17.ForeColor = System.Drawing.Color.Black;
+                                label17.Text = "Output File Name:";
+                                this.path = pathString;
+                                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
+                                {
+                                    file.WriteLine("Start Frequency: " + frequency_start);
+                                    file.WriteLine("End Frequency: " + frequency_end);
+                                    file.WriteLine("Amplitude: " + amplitude);
+                                    file.WriteLine("Sweep Rate: " + sweep);
+                                    file.WriteLine("DC Offset: " + offset);
+                                    file.WriteLine("Frequency Gain Phase Change");
+                                    for (int i = 0; i < 100; i++)
+                                    {
+                                        file.WriteLine(i + "\t" + i * i + "\t" + i * i * i);
+
+                                    }
+                                }
+                                test_complete = true;
+
+                                button1.BackColor = System.Drawing.Color.Red;
+                                button1.Text = "Stop Test";
+
+                                label8.ForeColor = System.Drawing.Color.Green;
+                                label8.Text = "Test Complete";
+                            }
+                            else
+                            {
+                                label17.ForeColor = System.Drawing.Color.Red;
+                                label17.Text = "File name already exists";
+                            }
+                        }
+                        else
+                        {
+                            label17.ForeColor = System.Drawing.Color.Red;
+                            label17.Text = "Invalid File Name";
+                        }
+                
                 }
-                test_complete = true;
-
-                button1.BackColor = System.Drawing.Color.Red;
-                button1.Text = "Stop Test";
-
-                label8.ForeColor = System.Drawing.Color.Green;
-                label8.Text = "Test Complete";
+                else
+                {
+                    label17.ForeColor = System.Drawing.Color.Red;
+                    label17.Text = "Invalid File Extension";
+                }
+                
             }
             else
             {
