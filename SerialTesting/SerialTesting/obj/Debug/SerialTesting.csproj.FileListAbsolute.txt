@@ -1,0 +1,18 @@
+C:\Users\Alexander Enriquez\Documents\Visual Studio 2013\Projects\SerialTesting\SerialTesting\bin\Debug\SerialTesting.exe.config
+C:\Users\Alexander Enriquez\Documents\Visual Studio 2013\Projects\SerialTesting\SerialTesting\bin\Debug\SerialTesting.exe
+C:\Users\Alexander Enriquez\Documents\Visual Studio 2013\Projects\SerialTesting\SerialTesting\bin\Debug\SerialTesting.pdb
+C:\Users\Alexander Enriquez\Documents\Visual Studio 2013\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.csprojResolveAssemblyReference.cache
+C:\Users\Alexander Enriquez\Documents\Visual Studio 2013\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.Form1.resources
+C:\Users\Alexander Enriquez\Documents\Visual Studio 2013\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.Properties.Resources.resources
+C:\Users\Alexander Enriquez\Documents\Visual Studio 2013\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.csproj.GenerateResource.Cache
+C:\Users\Alexander Enriquez\Documents\Visual Studio 2013\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.exe
+C:\Users\Alexander Enriquez\Documents\Visual Studio 2013\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.pdb
+C:\Users\dougd\Documents\Visual Studio 2015\Projects\SerialTesting\SerialTesting\bin\Debug\SerialTesting.exe.config
+C:\Users\dougd\Documents\Visual Studio 2015\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.exe
+C:\Users\dougd\Documents\Visual Studio 2015\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.pdb
+C:\Users\dougd\Documents\Visual Studio 2015\Projects\SerialTesting\SerialTesting\bin\Debug\SerialTesting.exe
+C:\Users\dougd\Documents\Visual Studio 2015\Projects\SerialTesting\SerialTesting\bin\Debug\SerialTesting.pdb
+C:\Users\dougd\Documents\Visual Studio 2015\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.csprojResolveAssemblyReference.cache
+C:\Users\dougd\Documents\Visual Studio 2015\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.Form1.resources
+C:\Users\dougd\Documents\Visual Studio 2015\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.Properties.Resources.resources
+C:\Users\dougd\Documents\Visual Studio 2015\Projects\SerialTesting\SerialTesting\obj\Debug\SerialTesting.csproj.GenerateResource.Cache
