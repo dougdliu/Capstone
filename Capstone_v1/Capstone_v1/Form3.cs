@@ -17,12 +17,14 @@ namespace Capstone_v1
     public partial class Form3 : Form
     {
         String path;
+        bool type;
 
-        public Form3(String ws)
+        public Form3(String ws, bool type)
         {
             this.path = ws;
-            
+            this.type = type;
             InitializeComponent();
+            AttachChartControl();
         }
 
         private void Form3_Load(object sender, EventArgs e)
@@ -32,6 +34,10 @@ namespace Capstone_v1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if(type==false)
+            {
+                chart1.ChartAreas["ChartArea1"].AxisX.IsLogarithmic = true;
+            }
             string[] data = System.IO.File.ReadAllLines(@path); // read all lines in the file
             double[] data2 = new double[data.Length-6]; // make the data from the text file doubles (convert string)
             double[] data3 = new double[data.Length-6];
@@ -57,6 +63,21 @@ namespace Capstone_v1
             StreamReader streamReader = new StreamReader(@path);
             richTextBox1.Text = streamReader.ReadToEnd(); // large empty space, for displaying contents inside file
             streamReader.Close();
+        }
+
+        private void AttachChartControl()
+        {
+            //Enable Extension Functions and Context Menu
+            chart1.EnableZoomAndPanControls(ChartCursorSelected, ChartCursorMoved);
+        }
+
+        private void ChartCursorSelected(double x, double y)
+        {
+            txtChartSelect.Text = x.ToString("F4") + ", " + y.ToString("F4");
+        }
+        private void ChartCursorMoved(double x, double y)
+        {
+            txtChartValue.Text = x.ToString("F4") + ", " + y.ToString("F4");
         }
     }
 }

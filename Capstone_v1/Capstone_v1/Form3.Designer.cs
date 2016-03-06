@@ -35,6 +35,8 @@
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.txtChartValue = new System.Windows.Forms.ToolStripStatusLabel();
+            this.txtChartSelect = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,6 +50,14 @@
             // 
             // chart1
             // 
+            chartArea1.AxisX.LabelStyle.Interval = 0D;
+            chartArea1.AxisX.ScrollBar.IsPositionedInside = false;
+            chartArea1.AxisY.LabelStyle.Interval = 0D;
+            chartArea1.AxisY.ScrollBar.IsPositionedInside = false;
+            chartArea1.CursorX.IsUserEnabled = true;
+            chartArea1.CursorX.IsUserSelectionEnabled = true;
+            chartArea1.CursorY.IsUserEnabled = true;
+            chartArea1.CursorY.IsUserSelectionEnabled = true;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -55,7 +65,7 @@
             this.chart1.Location = new System.Drawing.Point(484, 57);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
@@ -84,6 +94,16 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // txtChartValue
+            // 
+            this.txtChartValue.Name = "txtChartValue";
+            this.txtChartValue.Size = new System.Drawing.Size(23, 23);
+            // 
+            // txtChartSelect
+            // 
+            this.txtChartSelect.Name = "txtChartSelect";
+            this.txtChartSelect.Size = new System.Drawing.Size(23, 23);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -107,5 +127,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolStripStatusLabel txtChartValue;
+        private System.Windows.Forms.ToolStripStatusLabel txtChartSelect;
     }
 }

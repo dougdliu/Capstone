@@ -11,3 +11,5 @@ C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capsto
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Form2.resources
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Form3.resources
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Form4.resources
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\bin\Debug\System.Windows.Forms.DataVisualization.MSChartExtension.dll
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\bin\Debug\System.Windows.Forms.DataVisualization.MSChartExtension.xml

@@ -26,11 +26,11 @@ namespace Capstone_v1
         bool sweep_ready;
         bool offset_ready;
         //bool output_ready;
-        double amplitude;
-        double frequency_start;
-        double frequency_end;
-        double sweep;
-        double offset;
+        float amplitude;
+        float frequency_start;
+        float frequency_end;
+        float sweep;
+        float offset;
 
         public Form1(String ws)
         {
@@ -43,10 +43,10 @@ namespace Capstone_v1
             this.sweep_ready = false;
             this.offset_ready = false;
             //this.output_ready = false;
-            this.frequency_start = 0.0;
-            this.amplitude = 0.0;
-            this.sweep = 0.0;
-            this.offset = 0.0;
+            this.frequency_start = 0.0F;
+            this.amplitude = 0.0F;
+            this.sweep = 0.0F;
+            this.offset = 0.0F;
             InitializeComponent();
             
         }
@@ -61,7 +61,7 @@ namespace Capstone_v1
                 string frequency_str = textBox1.Text;
                 if(frequency_str != "")
                 {
-                    this.frequency_start = Convert.ToDouble(frequency_str);
+                    this.frequency_start = Convert.ToSingle(frequency_str);
                     if (frequency_start < 1 || frequency_start > 400000)
                     {
                         label5.ForeColor = System.Drawing.Color.Red;
@@ -98,7 +98,7 @@ namespace Capstone_v1
                 string frequency_str = textBox4.Text;
                 if (frequency_str != "")
                 {
-                    this.frequency_end = Convert.ToDouble(frequency_str);
+                    this.frequency_end = Convert.ToSingle(frequency_str);
                     if (frequency_end < 1 || frequency_end > 400000)
                     {
                         label5.ForeColor = System.Drawing.Color.Red;
@@ -137,7 +137,7 @@ namespace Capstone_v1
                 string amplitude_str = textBox2.Text;
                 if (amplitude_str != "")
                 {
-                    this.amplitude = Convert.ToDouble(amplitude_str);
+                    this.amplitude = Convert.ToSingle(amplitude_str);
                     if (amplitude < 0.005 || amplitude > 2)
                     {
                         label6.ForeColor = System.Drawing.Color.Red;
@@ -204,7 +204,7 @@ namespace Capstone_v1
             {
                 try
                 {
-                    this.sweep = Convert.ToDouble(textBox3.Text);
+                    this.sweep = Convert.ToSingle(textBox3.Text);
                     if (sweep <= 0 || sweep > 1000)
                     {
                         label7.ForeColor = System.Drawing.Color.Red;
@@ -230,7 +230,7 @@ namespace Capstone_v1
             {
                 try
                 {
-                    this.sweep = Convert.ToDouble(textBox3.Text);
+                    this.sweep = Convert.ToSingle(textBox3.Text);
                     if (sweep <= 0 || sweep > 1)
                     {
                         label7.ForeColor = System.Drawing.Color.Red;
@@ -268,7 +268,7 @@ namespace Capstone_v1
                 string offset_str = textBox5.Text;
                 if (offset_str != "")
                 {
-                    this.offset = Double.Parse(offset_str, NumberStyles.AllowLeadingSign);
+                    this.offset = float.Parse(offset_str, NumberStyles.AllowLeadingSign);
                     if (offset < -10 || offset > 10)
                     {
                         label12.ForeColor = System.Drawing.Color.Red;
@@ -348,7 +348,7 @@ namespace Capstone_v1
                                     file.WriteLine("Sweep Rate: " + sweep);
                                     file.WriteLine("DC Offset: " + offset);
                                     file.WriteLine("Frequency Gain Phase Change");
-                                    for (int i = 0; i < 100; i++)
+                                    for (int i = 1; i < 100; i++)
                                     {
                                         file.WriteLine(i + "\t" + i * i + "\t" + i * i * i);
 
@@ -396,7 +396,7 @@ namespace Capstone_v1
         {
             if (test_complete == true)
             {
-                Form3 frm = new Form3(path);
+                Form3 frm = new Form3(path, sweep_type);
                 frm.Show();
             }
         }
