@@ -17,10 +17,12 @@ namespace Capstone_v1
     public partial class Form4 : Form
     {
         String path;
+        bool type;
 
-        public Form4(String ws)
+        public Form4(String ws, bool type)
         {
             this.path = ws;
+            this.type = type;
 
             InitializeComponent();
         }
@@ -32,6 +34,11 @@ namespace Capstone_v1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (type == false)
+            {
+                chart1.ChartAreas["ChartArea1"].AxisX.IsLogarithmic = true;
+            }
+
             string[] data = System.IO.File.ReadAllLines(@path); // read all lines in the file
             double[] data2 = new double[data.Length-6]; // make the data from the text file doubles (convert string)
             double[] data3 = new double[data.Length-6];
@@ -47,8 +54,6 @@ namespace Capstone_v1
                 chart1.Series["Series1"].Points.AddXY(data2[i], data3[i]);
             }
 
-            chart1.Series["Series1"].ChartType = SeriesChartType.FastLine;
-            chart1.Series["Series1"].Color = Color.Blue;
         }
 
         private void button2_Click(object sender, EventArgs e)

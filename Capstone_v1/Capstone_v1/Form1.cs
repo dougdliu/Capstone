@@ -56,6 +56,9 @@ namespace Capstone_v1
         //Frequency Start Text Box Handling
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            button1.BackColor = System.Drawing.Color.Green;
+            button1.Text = "Start Test";
+
             try
             {
                 string frequency_str = textBox1.Text;
@@ -93,6 +96,9 @@ namespace Capstone_v1
         //Frequency End Text Box Handling
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
+            button1.BackColor = System.Drawing.Color.Green;
+            button1.Text = "Start Test";
+
             try
             {
                 string frequency_str = textBox4.Text;
@@ -132,6 +138,9 @@ namespace Capstone_v1
         //Amplitude Text Box Handling
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
+            button1.BackColor = System.Drawing.Color.Green;
+            button1.Text = "Start Test";
+
             try
             {
                 string amplitude_str = textBox2.Text;
@@ -171,6 +180,9 @@ namespace Capstone_v1
         //Sweep Rate Combo Box Handling
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            button1.BackColor = System.Drawing.Color.Green;
+            button1.Text = "Start Test";
+
             if(comboBox1.SelectedIndex == 1)
             {
                 label7.ForeColor = System.Drawing.Color.Black;
@@ -200,6 +212,9 @@ namespace Capstone_v1
         //Sweep Rate Text Box Handling
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
+            button1.BackColor = System.Drawing.Color.Green;
+            button1.Text = "Start Test";
+
             if(combo_ready == true && sweep_type==true && textBox3.Text != "")
             {
                 try
@@ -263,6 +278,9 @@ namespace Capstone_v1
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
+            button1.BackColor = System.Drawing.Color.Green;
+            button1.Text = "Start Test";
+
             try
             {
                 string offset_str = textBox5.Text;
@@ -302,41 +320,60 @@ namespace Capstone_v1
         //Start Test Button Handling COMMUNICATION HAPPENS HERE
         private void button1_Click(object sender, EventArgs e)
         {
-
-            if (frequency_start_ready == true && frequency_end_ready == true && frequency_end > frequency_start)
+            if (button1.Text == "Stop Test")
             {
-                frequency_ready = true;
+                //send a stop signal to the edison
+
+                //change the button to a neutral color and say resume test
+                button1.BackColor = System.Drawing.Color.Blue;
+                button1.Text = "Resume Test";
+
+            }
+            else if (button1.Text == "Resume Test")
+            {
+                //send some form of restart signal to the edison
             }
             else
             {
-                frequency_ready = false;
-            }
-
-            if (amplitude_ready == true && frequency_ready == true && sweep_ready == true && offset_ready == true && textBox6.Text != "")
-            {
-                /* Replace File Stuff With Communication */
-                String fileName = textBox6.Text;
-                if(fileName.EndsWith(".txt")||fileName.EndsWith(".csv"))
+                //initialize communication with the Edison with a handshake
+                if (frequency_start_ready == true && frequency_end_ready == true && frequency_end > frequency_start)
                 {
-                    label17.ForeColor = System.Drawing.Color.Black;
-                    label17.Text = "Output File Name:";
-                    char[] invalid = Path.GetInvalidFileNameChars();
-                    bool contains_invalid=false;
-                    for (int i = 0; i < invalid.Length; i++)
+                    frequency_ready = true;
+                }
+                else
+                {
+                    frequency_ready = false;
+                }
+
+                if (amplitude_ready == true && frequency_ready == true && sweep_ready == true && offset_ready == true && textBox6.Text != "")
+                {
+                    //Send the 6 data points to the Edison
+
+                    /* Replace File Stuff With Communication */
+                    String fileName = textBox6.Text;
+                    if (fileName.EndsWith(".txt") || fileName.EndsWith(".csv"))
                     {
-                        String c = invalid[i].ToString();
-                        if(fileName.Contains(c))
+                        label17.ForeColor = System.Drawing.Color.Black;
+                        label17.Text = "Output File Name:";
+                        char[] invalid = Path.GetInvalidFileNameChars();
+                        bool contains_invalid = false;
+                        for (int i = 0; i < invalid.Length; i++)
                         {
-                            contains_invalid = true;
+                            String c = invalid[i].ToString();
+                            if (fileName.Contains(c))
+                            {
+                                contains_invalid = true;
+                            }
                         }
-                    }
-                    if (contains_invalid == false)
+                        if (contains_invalid == false)
                         {
                             label17.ForeColor = System.Drawing.Color.Black;
                             label17.Text = "Output File Name:";
                             String pathString = System.IO.Path.Combine(workspace, fileName);
                             if (!File.Exists(pathString))
                             {
+                                //read the data from the Edison and write it to a file
+
                                 label17.ForeColor = System.Drawing.Color.Black;
                                 label17.Text = "Output File Name:";
                                 this.path = pathString;
@@ -373,19 +410,20 @@ namespace Capstone_v1
                             label17.ForeColor = System.Drawing.Color.Red;
                             label17.Text = "Invalid File Name";
                         }
-                
+
+                    }
+                    else
+                    {
+                        label17.ForeColor = System.Drawing.Color.Red;
+                        label17.Text = "Invalid File Extension";
+                    }
+
                 }
                 else
                 {
-                    label17.ForeColor = System.Drawing.Color.Red;
-                    label17.Text = "Invalid File Extension";
+                    label8.ForeColor = System.Drawing.Color.Red;
+                    label8.Text = "One or more values not set or valid";
                 }
-                
-            }
-            else
-            {
-                label8.ForeColor = System.Drawing.Color.Red;
-                label8.Text = "One or more values not set or valid";
             }
         }
 
@@ -394,6 +432,9 @@ namespace Capstone_v1
         //View Gain Results Button Handling
         private void button2_Click(object sender, EventArgs e)
         {
+            button1.BackColor = System.Drawing.Color.Green;
+            button1.Text = "Start Test";
+
             if (test_complete == true)
             {
                 Form3 frm = new Form3(path, sweep_type);
@@ -404,9 +445,12 @@ namespace Capstone_v1
         //View Phase Change Results Button Handling
         private void button3_Click(object sender, EventArgs e)
         {
+            button1.BackColor = System.Drawing.Color.Green;
+            button1.Text = "Start Test";
+
             if (test_complete == true)
             {
-                Form4 frm = new Form4(path);
+                Form4 frm = new Form4(path, sweep_type);
                 frm.Show();
             }
         }

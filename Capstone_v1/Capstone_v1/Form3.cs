@@ -24,7 +24,7 @@ namespace Capstone_v1
             this.path = ws;
             this.type = type;
             InitializeComponent();
-            AttachChartControl();
+            //AttachChartControl();
         }
 
         private void Form3_Load(object sender, EventArgs e)
@@ -53,8 +53,6 @@ namespace Capstone_v1
                 chart1.Series["Series1"].Points.AddXY(data2[i], data3[i]);
             }
 
-            chart1.Series["Series1"].ChartType = SeriesChartType.FastLine;
-            chart1.Series["Series1"].Color = Color.Blue;
         }
 
         private void button2_Click(object sender, EventArgs e)
