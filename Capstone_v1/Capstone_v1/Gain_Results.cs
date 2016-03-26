@@ -14,16 +14,18 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Capstone_v1
 {
-    public partial class Form3 : Form
+    public partial class Gain_Results : Form
     {
         String path;
         bool type;
 
-        public Form3(String ws, bool type)
+        public Gain_Results(String ws, bool type)
         {
             this.path = ws;
             this.type = type;
             InitializeComponent();
+
+            /*IGNORE THIS: JUST FOR TESTING A CHART EXTENSION*/
             //AttachChartControl();
         }
 
@@ -36,7 +38,7 @@ namespace Capstone_v1
         {
             if(type==false)
             {
-                chart1.ChartAreas["ChartArea1"].AxisX.IsLogarithmic = true;
+                Gain_Chart.ChartAreas["ChartArea1"].AxisX.IsLogarithmic = true;
             }
             string[] data = System.IO.File.ReadAllLines(@path); // read all lines in the file
             double[] data2 = new double[data.Length-6]; // make the data from the text file doubles (convert string)
@@ -50,7 +52,7 @@ namespace Capstone_v1
 
             for (int i = 0; i < data2.Length - 1; i++)
             {
-                chart1.Series["Series1"].Points.AddXY(data2[i], data3[i]);
+                Gain_Chart.Series["Series1"].Points.AddXY(data2[i], data3[i]);
             }
 
         }
@@ -59,16 +61,17 @@ namespace Capstone_v1
         {
             
             StreamReader streamReader = new StreamReader(@path);
-            richTextBox1.Text = streamReader.ReadToEnd(); // large empty space, for displaying contents inside file
+            Gain_Data.Text = streamReader.ReadToEnd(); // large empty space, for displaying contents inside file
             streamReader.Close();
         }
 
         private void AttachChartControl()
         {
             //Enable Extension Functions and Context Menu
-            chart1.EnableZoomAndPanControls(ChartCursorSelected, ChartCursorMoved);
+            Gain_Chart.EnableZoomAndPanControls(ChartCursorSelected, ChartCursorMoved);
         }
 
+        /*IGNORE THIS: JUST FOR TESTING A CHART EXTENSION*/
         private void ChartCursorSelected(double x, double y)
         {
             txtChartSelect.Text = x.ToString("F4") + ", " + y.ToString("F4");

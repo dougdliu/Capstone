@@ -3,13 +3,13 @@ C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\bin\Debug\Capsto
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\bin\Debug\Capstone_v1.exe
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\bin\Debug\Capstone_v1.pdb
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.csprojResolveAssemblyReference.cache
-C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Form1.resources
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Properties.Resources.resources
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.csproj.GenerateResource.Cache
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.exe
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.pdb
-C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Form2.resources
-C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Form3.resources
-C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Form4.resources
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\bin\Debug\System.Windows.Forms.DataVisualization.MSChartExtension.dll
 C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\bin\Debug\System.Windows.Forms.DataVisualization.MSChartExtension.xml
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Main_Page.resources
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Set_Workspace.resources
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Gain_Results.resources
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Phase_Change_Results.resources

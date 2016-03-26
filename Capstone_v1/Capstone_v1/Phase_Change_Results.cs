@@ -14,12 +14,12 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Capstone_v1
 {
-    public partial class Form4 : Form
+    public partial class Phase_Change_Results : Form
     {
         String path;
         bool type;
 
-        public Form4(String ws, bool type)
+        public Phase_Change_Results(String ws, bool type)
         {
             this.path = ws;
             this.type = type;
@@ -36,7 +36,7 @@ namespace Capstone_v1
         {
             if (type == false)
             {
-                chart1.ChartAreas["ChartArea1"].AxisX.IsLogarithmic = true;
+                Phase_Change_Chart.ChartAreas["ChartArea1"].AxisX.IsLogarithmic = true;
             }
 
             string[] data = System.IO.File.ReadAllLines(@path); // read all lines in the file
@@ -51,7 +51,7 @@ namespace Capstone_v1
             
             for (int i = 1; i < data2.Length - 1; i++)
             {
-                chart1.Series["Series1"].Points.AddXY(data2[i], data3[i]);
+                Phase_Change_Chart.Series["Series1"].Points.AddXY(data2[i], data3[i]);
             }
 
         }
@@ -60,7 +60,7 @@ namespace Capstone_v1
         {
 
             StreamReader streamReader = new StreamReader(@path);
-            richTextBox1.Text = streamReader.ReadToEnd(); // large empty space, for displaying contents inside file
+            Phase_Change_Data.Text = streamReader.ReadToEnd(); // large empty space, for displaying contents inside file
             streamReader.Close();
         }
     }
