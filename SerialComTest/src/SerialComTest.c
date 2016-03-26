@@ -1,3 +1,13 @@
+//	SerialComTest.c
+//
+
+// This Porgram is made to test the Serial Communication between the Edison and Software Program.
+// It is tested with SerialReadWriteTest/ConsoleApplication1/Program.cs
+// The program initiates a UART communication at 115200 baud Rate
+//
+
+
+
 #include "mraa.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +27,7 @@ int main(int argc, char** argv)
     	return EXIT_FAILURE;
     }
 
-    mraa_uart_set_baudrate(uart, 9600);			// Baudrate = 115200 bps
+    mraa_uart_set_baudrate(uart, 115200);			// Baudrate = 115200 bps
     mraa_uart_set_mode(uart, 8, 2, 1);			// 8 bits per frame, odd parity, and 1 stop bit
 
     if (uart == NULL) {
@@ -34,7 +44,9 @@ int main(int argc, char** argv)
     for(i = 0; i < 6; i++)
     	memset(initialBuffer[i], '\0', sizeof(initialBuffer[i]));
 
-    // This loop checks for a handshake //
+    // This loop checks for a handshake from the compter, "HI"//
+		// returns an Exit failuer upon failed Reading
+		// Upon successful handshake, returns the handshake "HI" with "U" added onto it "HIU"
     for(;;)
     {
     	ret = mraa_uart_read(uart, Handshake, sizeof(Handshake));
@@ -45,8 +57,8 @@ int main(int argc, char** argv)
     	}
     	//printf("%s\n", Handshake);				// Print Handshake buffer for debug purposes
 
-    	// Checks if the Handshake is received
-    	// If so, then send an acknowledgment back to the computer
+    	// Checks if the Handshake is received - "HI"
+    	// If so, then send an acknowledgment back to the computer - "HIU"
     	if(strcmp(Handshake, "HI") == 0)
     	{
     		sprintf(Handshake, "%s%s", Handshake, "U");
@@ -57,9 +69,15 @@ int main(int argc, char** argv)
     }
 
     // This loop will read data from the device //
+		// This is used to recieve Frequency Start, Frequency End, Linear or Logarithmic, Amplitude, and DC Offset
+		// If the UART fails to read in, the loop ends with a failure message
+		// The Edison expects six float values, with a starting flag incrementing from 0 to 5.
+		// When the flag is matched, the Edison sends a "Y" back to confirm the end of that value
+		// This is done for all six values, breaking the loop //
     i = 0;
     for(;;)
     {
+			//This read function blocks until data is read in
     	ret = mraa_uart_read(uart, initialBuffer[i], sizeof(initialBuffer[i]));
     	if(ret < 0)
     	{
@@ -81,7 +99,9 @@ int main(int argc, char** argv)
     	}
     }
 
-    // Debug print to see if received float is indeed the float that we want //
+
+    // Debug print to console to see if received float is indeed the float that we want //
+
     for(i = 0; i < 6; i++)
     {
     	translatedBuffer[i] = atof(initialBuffer[i]+1);
@@ -89,6 +109,8 @@ int main(int argc, char** argv)
     }
 
     // This loop will send data back to computer periodically until 'E' is sent //
+		// The data sent back is randomly generated floats //
+		// This is to be replaced with actual frequency, gain, and phase change values from the hardware system //
     i = 0;
     srand((unsigned int)time(NULL));	// Seed for random number generator
     float num = 4.0;

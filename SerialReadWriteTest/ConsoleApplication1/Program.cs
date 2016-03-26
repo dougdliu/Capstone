@@ -9,6 +9,8 @@ namespace SerialReadWriteTest
 {
     class Program
     {
+
+
         // Handshake Method //
         static bool HandShake(SerialPort serial, string hndShk, byte[] hsResp)
         {
@@ -36,6 +38,7 @@ namespace SerialReadWriteTest
                     {
                         //Console.WriteLine("Read timeout occured");
                     }
+
                 }
                 string message = System.Text.Encoding.ASCII.GetString(hsResp);
                 //Console.WriteLine(message);
@@ -69,7 +72,7 @@ namespace SerialReadWriteTest
                         tryAgain = false;
                     //else
                     //    return false;           //Edison Failed to acknowledge
-                        
+
                 }
                 catch (TimeoutException)
                 {
@@ -100,7 +103,7 @@ namespace SerialReadWriteTest
                     }
                     catch (TimeoutException)
                     {
-                        //Console.WriteLine("Read timeout occured"); 
+                        //Console.WriteLine("Read timeout occured");
                     }
 
                     Thread.Sleep(10);
@@ -115,13 +118,13 @@ namespace SerialReadWriteTest
                     }
                 }
                 string message = System.Text.Encoding.ASCII.GetString(dataIn);
-                
+
                 serial.Close();
                 return message; //float.Parse(message);
             }
         }
 
-         
+
         static void Main(string[] args)
         {
             SerialPort serial = new SerialPort();
@@ -155,12 +158,12 @@ namespace SerialReadWriteTest
             //}
 
             //Hard coded float values
-            toTransmit[0] = "10.001";
-            toTransmit[1] = "11.002";
-            toTransmit[2] = "12.003";
-            toTransmit[3] = "1";
-            toTransmit[4] = "13.004";
-            toTransmit[5] = "14.005";
+            toTransmit[0] = "10.001"; // Frequency Start
+            toTransmit[1] = "11.002"; // Frequency End
+            toTransmit[2] = "12.003"; // Sweep Rate
+            toTransmit[3] = "1";      // Lin or Log
+            toTransmit[4] = "13.004"; // Amplitude
+            toTransmit[5] = "14.005"; // DC Offset
 
 
             //Handshake with Edison
@@ -168,7 +171,7 @@ namespace SerialReadWriteTest
                 Console.WriteLine("Successful Handshake!");
             else
                 Console.WriteLine("Unsuccessful Handshake");
-            
+
             //Transmit
             for (int i=0; i<6; i++)
             {
@@ -189,11 +192,13 @@ namespace SerialReadWriteTest
             }
             //Ending Data Read
 
+
+
             Console.WriteLine("Tis Over");
             Console.Read();
 
         }//End of main
 
- 
+
     }
 }
