@@ -41,6 +41,9 @@ namespace Capstone_v1
         string sweep_rate_str;
         string offset_str;
 
+        //Make the communications object
+        private Communications com; 
+
         public Main_Page(String ws)
         {
             this.workspace = ws;
@@ -63,6 +66,8 @@ namespace Capstone_v1
             this.amplitude_str="";
             this.sweep_rate_str="";
             this.offset_str="";
+
+            this.com = new Communications();
             
         }
 
@@ -436,7 +441,6 @@ namespace Capstone_v1
                 //All the values are ready and the file name is not empty
                 if (amplitude_ready == true && frequency_ready == true && sweep_ready == true && offset_ready == true && file_name_val.Text != "")
                 {
-                    //Send the 6 data points to the Edison
 
                     /* Replace File Stuff With Communication */
                     String fileName = file_name_val.Text;
@@ -469,36 +473,88 @@ namespace Capstone_v1
                             //if the file doesn't already exist
                             if (!File.Exists(pathString))
                             {
+
                                 //reset the label
                                 file_name_label.ForeColor = System.Drawing.Color.Black;
                                 file_name_label.Text = "Output File Name:";
 
-                                //reset the button (will need to be moved to a different location later)
-                                run_test_button.BackColor = System.Drawing.Color.Red;
-                                run_test_button.Text = "Pause Test";
-                                
-                                this.path = pathString;
-                                //dummy data is being written to a file
-                                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
-                                {
-                                    file.WriteLine("Start Frequency: " + frequency_start);
-                                    file.WriteLine("End Frequency: " + frequency_end);
-                                    file.WriteLine("Amplitude: " + amplitude);
-                                    file.WriteLine("Sweep Rate: " + sweep);
-                                    file.WriteLine("DC Offset: " + offset);
-                                    file.WriteLine("Frequency Gain Phase Change");
-                                    for (int i = 1; i < 100; i++)
-                                    {
-                                        file.WriteLine(i + "\t" + i * i + "\t" + i * i * i);
+                                bool handshake_success = com.HandShake("HI");
 
+                                if (handshake_success)
+                                {
+
+                                    bool start = com.Transmit(frequency_str_start);
+                                    bool end = com.Transmit(frequency_str_end);
+                                    bool rate = com.Transmit(sweep_rate_str);
+                                    string type;
+                                    if (sweep_type)
+                                    {
+                                        type = "0";
+                                    }
+                                    else
+                                    {
+                                        type = "1";
+                                    }
+
+                                    bool sweep = com.Transmit(type);
+                                    bool amp = com.Transmit(amplitude_str);
+                                    bool off = com.Transmit(offset_str);
+
+                                    if (start && end && rate && sweep && amp && off)
+                                    {
+
+                                        //reset the button (will need to be moved to a different location later)
+                                        run_test_button.BackColor = System.Drawing.Color.Red;
+                                        run_test_button.Text = "Pause Test";
+
+                                        this.path = pathString;
+                                        using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
+                                        {
+                                            file.WriteLine("Start Frequency: " + frequency_start);
+                                            file.WriteLine("End Frequency: " + frequency_end);
+                                            file.WriteLine("Amplitude: " + amplitude);
+                                            file.WriteLine("Sweep Rate: " + sweep);
+                                            file.WriteLine("DC Offset: " + offset);
+                                            file.WriteLine("Frequency Gain Phase Change");
+                                            test_output_label.Text = "Test in Progress";
+                                            String output = com.ReadIn();
+                                            while (output != "e")
+                                            {
+                                                file.WriteLine(output);
+                                                output = com.ReadIn();
+                                            }
+                                        }
+
+                                        
+                                        //dummy data is being written to a file
+                                       /* using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
+                                        {
+                                            file.WriteLine("Start Frequency: " + frequency_start);
+                                            file.WriteLine("End Frequency: " + frequency_end);
+                                            file.WriteLine("Amplitude: " + amplitude);
+                                            file.WriteLine("Sweep Rate: " + sweep);
+                                            file.WriteLine("DC Offset: " + offset);
+                                            file.WriteLine("Frequency Gain Phase Change");
+                                            for (int i = 1; i < 100; i++)
+                                            {
+                                                file.WriteLine(i + "\t" + i * i + "\t" + i * i * i);
+
+                                            }
+                                        }*/
+                                        //set the test to complete (will need to be moved to a different location later)
+                                        test_complete = true;
+
+                                        //reset the output label (will need to be moved to a different location later)
+                                        test_output_label.ForeColor = System.Drawing.Color.Green;
+                                        test_output_label.Text = "Test Complete";
+                                    }
+                                    
+                                    else
+                                    {
+                                        
                                     }
                                 }
-                                //set the test to complete (will need to be moved to a different location later)
-                                test_complete = true;
-
-                                //reset the output label (will need to be moved to a different location later)
-                                test_output_label.ForeColor = System.Drawing.Color.Green;
-                                test_output_label.Text = "Test Complete";
+                                else { }
                             }
                             //The file name alreay exists, set the label to invalid
                             else
@@ -538,24 +594,24 @@ namespace Capstone_v1
         private void button2_Click(object sender, EventArgs e)
         {
             //If the test is complete
-            if (test_complete == true)
-            {
+            //if (test_complete == true)
+            //{
                 //Open up the gain results form
                 Gain_Results frm = new Gain_Results(path, sweep_type);
                 frm.Show();
-            }
+            //}
         }
 
         //View Phase Change Results Button Handling
         private void button3_Click(object sender, EventArgs e)
         {
             //If the test is complete
-            if (test_complete == true)
-            {
+            //if (test_complete == true)
+            //{
                 //Open up the phase change results form
                 Phase_Change_Results frm = new Phase_Change_Results(path, sweep_type);
                 frm.Show();
-            }
+            //}
         }
 
     }

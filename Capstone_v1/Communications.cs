@@ -23,7 +23,7 @@ public class Communications
         tryAgain = false;
 	}
 
-    bool HandShake(string hndShk)
+    public bool HandShake(string hndShk)
     {
         byte[] hsResp = new byte[3];
         bool tryAgain = true;
@@ -59,7 +59,7 @@ public class Communications
             return false;
         }
     }
-    bool Transmit(string dataOut)
+    public bool Transmit(string dataOut)
     {
         byte[] resp = new byte[1];
         bool tryAgain = true;
@@ -91,7 +91,7 @@ public class Communications
         serial.Close();
         return true;
     }
-    string ReadIn()
+    public string ReadIn()
     {
         byte[] dataIn = new byte[45];
         bool tryAgain = true;

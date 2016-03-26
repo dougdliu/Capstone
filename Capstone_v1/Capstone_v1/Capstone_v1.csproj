@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Communications.cs">
+      <Link>Communications.cs</Link>
+    </Compile>
     <Compile Include="Main_Page.cs">
       <SubType>Form</SubType>
     </Compile>

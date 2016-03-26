@@ -46,8 +46,8 @@ namespace Capstone_v1
 
             for (int i = 0; i < data.Length-6; i++)
             {
-                data2[i] = Convert.ToDouble(data[i+6].Split('\t')[0]);
-                data3[i] = Convert.ToDouble(data[i+6].Split('\t')[1]);
+                data2[i] = Convert.ToDouble(data[i+6].Split(',')[0]);
+                data3[i] = Convert.ToDouble(data[i+6].Split(',')[1]);
             }
 
             for (int i = 0; i < data2.Length - 1; i++)
