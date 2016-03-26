@@ -8,9 +8,7 @@ using System.IO.Ports; // For Serial objects
 namespace SerialReadWriteTest
 {
     class Program
-    {   
-        
-        
+    {
         // Handshake Method //
         static bool HandShake(SerialPort serial, string hndShk, byte[] hsResp)
         {
@@ -38,7 +36,6 @@ namespace SerialReadWriteTest
                     {
                         //Console.WriteLine("Read timeout occured");
                     }
-
                 }
                 string message = System.Text.Encoding.ASCII.GetString(hsResp);
                 //Console.WriteLine(message);
@@ -84,7 +81,7 @@ namespace SerialReadWriteTest
             return true;
         }
 
-        //Recieve Data 45 bytes at a time
+        //Receive Data 45 bytes at a time
         static string ReadIn(SerialPort serial, string dataOut, byte[] dataIn)
         {
 
@@ -191,8 +188,6 @@ namespace SerialReadWriteTest
                     Console.WriteLine(display);
             }
             //Ending Data Read
-
-
 
             Console.WriteLine("Tis Over");
             Console.Read();
