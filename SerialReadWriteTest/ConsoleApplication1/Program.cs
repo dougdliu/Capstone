@@ -197,6 +197,7 @@ namespace SerialReadWriteTest
             Console.WriteLine("Done Transmitting");
 
             //Reading Data Continuously
+            string testing = "";
 
             while(tryAgain)
             {
@@ -204,7 +205,14 @@ namespace SerialReadWriteTest
                 if (display[0] == 'E')
                     tryAgain = false;
                 else
-                    Console.WriteLine(display);
+                {
+                    //Console.WriteLine(display);
+                   
+                    if (testing.CompareTo(display) == 0)
+                        Console.WriteLine("Duplicate on " + display);
+                    testing = display;
+                    
+                }
             }
             //Ending Data Read
 

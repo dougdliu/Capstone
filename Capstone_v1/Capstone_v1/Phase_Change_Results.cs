@@ -49,7 +49,7 @@ namespace Capstone_v1
                 data3[i] = Convert.ToDouble(data[i+6].Split(',')[2]);
             }
             
-            for (int i = 1; i < data2.Length - 1; i++)
+            for (int i = 1; i < data2.Length; i++)
             {
                 Phase_Change_Chart.Series["Series1"].Points.AddXY(data2[i], data3[i]);
             }

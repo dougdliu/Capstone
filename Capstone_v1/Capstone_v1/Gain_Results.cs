@@ -50,7 +50,7 @@ namespace Capstone_v1
                 data3[i] = Convert.ToDouble(data[i+6].Split(',')[1]);
             }
 
-            for (int i = 0; i < data2.Length - 1; i++)
+            for (int i = 0; i < data2.Length; i++)
             {
                 Gain_Chart.Series["Series1"].Points.AddXY(data2[i], data3[i]);
             }
