@@ -27,6 +27,7 @@ namespace SerialReadWriteTest
                     catch (TimeoutException)
                     {
                         Console.WriteLine("Write timeout occured");
+                        continue;
                     }
                     Thread.Sleep(100);
                     try
@@ -63,6 +64,7 @@ namespace SerialReadWriteTest
                 catch (TimeoutException)
                 {
                     Console.WriteLine("Write timeout occured");
+                    continue;
                 }
                 Thread.Sleep(100);
                 try
@@ -92,6 +94,18 @@ namespace SerialReadWriteTest
             while (true)
             {
                 serial.Open();
+
+                try
+                {
+                    serial.Write("N");
+                }
+                catch(TimeoutException)
+                {
+                    serial.Close();
+                    continue;
+
+                }
+
                 while (tryAgain)
                 {
 
@@ -104,8 +118,10 @@ namespace SerialReadWriteTest
                     catch (TimeoutException)
                     {
                         //Console.WriteLine("Read timeout occured");
+                        //serial.DiscardOutBuffer();
+                        //serial.Write("N");
                     }
-
+                
                     Thread.Sleep(10);
 
                     try
@@ -142,7 +158,7 @@ namespace SerialReadWriteTest
             string[] port = SerialPort.GetPortNames();
             Console.WriteLine(port[0]);
 
-            serial.PortName = port[0];
+            serial.PortName = port[1];
             string handShake = "HI";
             byte[] hsResponse = new byte[3];
             string transmit = "COMPUTER HI";

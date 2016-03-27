@@ -20,6 +20,8 @@ public class Communications
         serial.RtsEnable = true;
         serial.Parity = Parity.Odd;
         serial.Encoding = System.Text.Encoding.GetEncoding(1252);
+        string[] port = SerialPort.GetPortNames();
+        serial.PortName = port[1];
         tryAgain = false;
 	}
 
@@ -27,6 +29,8 @@ public class Communications
     {
         byte[] hsResp = new byte[3];
         bool tryAgain = true;
+        string[] port = SerialPort.GetPortNames();
+
         while (true)
         {
             serial.Open();
@@ -98,6 +102,17 @@ public class Communications
         while (true)
         {
             serial.Open();
+
+            /* Dummy Write */
+            try
+            {
+                serial.Write("N");
+            }
+            catch (TimeoutException)
+            {
+                serial.Close();
+                continue;
+            }
             while (tryAgain)
             {
                 Thread.Sleep(10);

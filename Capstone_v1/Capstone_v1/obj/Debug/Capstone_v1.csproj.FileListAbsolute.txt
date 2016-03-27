@@ -16,3 +16,14 @@ C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capsto
 C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\bin\Debug\Capstone_v1.exe.config
 C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.exe
 C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.pdb
+C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\bin\Debug\Capstone_v1.exe
+C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\bin\Debug\Capstone_v1.pdb
+C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\bin\Debug\System.Windows.Forms.DataVisualization.MSChartExtension.dll
+C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\bin\Debug\System.Windows.Forms.DataVisualization.MSChartExtension.xml
+C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.csprojResolveAssemblyReference.cache
+C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Main_Page.resources
+C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Set_Workspace.resources
+C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Gain_Results.resources
+C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Phase_Change_Results.resources
+C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Properties.Resources.resources
+C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.csproj.GenerateResource.Cache

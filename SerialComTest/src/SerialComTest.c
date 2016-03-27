@@ -102,11 +102,11 @@ int main(int argc, char** argv)
 
     // Debug print to console to see if received float is indeed the float that we want //
 
-    for(i = 0; i < 6; i++)
+    /* for(i = 0; i < 6; i++)
     {
     	translatedBuffer[i] = atof(initialBuffer[i]+1);
     	printf("%f\n", translatedBuffer[i]);
-    }
+    } */
 
     // This loop will send data back to computer periodically until 'E' is sent //
 		// The data sent back is randomly generated floats //
@@ -121,6 +121,13 @@ int main(int argc, char** argv)
     for(;;)
     {
     	// Generate a random float //
+		// Read Dummy Data //
+    	ret = mraa_uart_read(uart, &c, 1);
+    	if(ret < 0)
+    	{
+    		fprintf(stderr, "UART failed to read");
+    		return EXIT_FAILURE;
+    	}
     	if(ack == 1)
     	{
         	rng[0] = (((float)rand())/((float)(RAND_MAX))*num);
@@ -146,8 +153,6 @@ int main(int argc, char** argv)
     			break;
     		}
     	}
-    	else
-    		ack = 0;
     }
 
     mraa_uart_stop(uart);	// Stops the Serial Port

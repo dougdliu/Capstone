@@ -480,12 +480,13 @@ namespace Capstone_v1
 
                                 bool handshake_success = com.HandShake("HI");
 
+//                                if(!com.HandShake("HI"))                                  
                                 if (handshake_success)
                                 {
-
-                                    bool start = com.Transmit(frequency_str_start);
-                                    bool end = com.Transmit(frequency_str_end);
-                                    bool rate = com.Transmit(sweep_rate_str);
+                                    int i = 0;
+                                    bool start = com.Transmit((i++) + "" + frequency_str_start);
+                                    bool end = com.Transmit((i++) + "" + frequency_str_end);
+                                    bool rate = com.Transmit((i++) + "" + sweep_rate_str);
                                     string type;
                                     if (sweep_type)
                                     {
@@ -496,9 +497,9 @@ namespace Capstone_v1
                                         type = "1";
                                     }
 
-                                    bool sweep = com.Transmit(type);
-                                    bool amp = com.Transmit(amplitude_str);
-                                    bool off = com.Transmit(offset_str);
+                                    bool sweep = com.Transmit((i++) + "" + type);
+                                    bool amp = com.Transmit((i++) + "" + amplitude_str);
+                                    bool off = com.Transmit((i++) + "" + offset_str);
 
                                     if (start && end && rate && sweep && amp && off)
                                     {
@@ -518,7 +519,7 @@ namespace Capstone_v1
                                             file.WriteLine("Frequency Gain Phase Change");
                                             test_output_label.Text = "Test in Progress";
                                             String output = com.ReadIn();
-                                            while (output != "e")
+                                            while (output[0] != 'E')
                                             {
                                                 file.WriteLine(output);
                                                 output = com.ReadIn();
