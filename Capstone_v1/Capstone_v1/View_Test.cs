@@ -14,9 +14,11 @@ namespace Capstone_v1
     public partial class View_Test : Form
     {
         String path;
+        Boolean type;
         public View_Test()
         {
             path = "";
+            type = true;
             InitializeComponent();
         }
 
@@ -59,6 +61,14 @@ namespace Capstone_v1
                                 data3[i] = Convert.ToDouble(data[i + 6].Split(',')[2]);
                             }
 
+                            if(data[3].StartsWith("Linear"))
+                            {
+                                type = true;
+                            }
+                            else
+                            {
+                                type = false;
+                            }
                             gain_button.Visible = true;
                             phase_change_button.Visible = true;
                             Output_Label.ForeColor = System.Drawing.Color.Green;
@@ -69,6 +79,8 @@ namespace Capstone_v1
                         {
                             Output_Label.ForeColor = System.Drawing.Color.Red;
                             Output_Label.Text = "Data in File not valid";
+                            gain_button.Visible = false;
+                            phase_change_button.Visible = false;
                         }
 
                     }
@@ -76,25 +88,29 @@ namespace Capstone_v1
                     {
                         Output_Label.ForeColor = System.Drawing.Color.Red;
                         Output_Label.Text = "Data in File not valid";
+                        gain_button.Visible = false;
+                        phase_change_button.Visible = false;
                     }
                 }
                 else
                 {
                     Output_Label.ForeColor = System.Drawing.Color.Red;
                     Output_Label.Text = "File Path Not Valid";
+                    gain_button.Visible = false;
+                    phase_change_button.Visible = false;
                 }
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Gain_Results frm = new Gain_Results(path, true);
+            Gain_Results frm = new Gain_Results(path, type);
             frm.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Phase_Change_Results frm = new Phase_Change_Results(path, true);
+            Phase_Change_Results frm = new Phase_Change_Results(path, type);
             frm.Show();
         }
     }

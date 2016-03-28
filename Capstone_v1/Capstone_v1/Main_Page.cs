@@ -42,10 +42,13 @@ namespace Capstone_v1
         string offset_str;
 
         //Make the communications object
-        //private Communications com; 
+        private Communications com;
+        bool debug;
 
         public Main_Page(String ws)
         {
+            /*Set to true when testing software without edison, false when testing software with edison*/
+            debug = true;
             this.workspace = ws;
             this.test_complete = false;
             this.combo_ready = false;
@@ -66,8 +69,10 @@ namespace Capstone_v1
             this.amplitude_str="";
             this.sweep_rate_str="";
             this.offset_str="";
-
-            //this.com = new Communications();
+            if (!debug)
+            {
+                this.com = new Communications();
+            }
             
         }
 
@@ -463,51 +468,59 @@ namespace Capstone_v1
                 //All the values are ready and the file name is not empty
                 if (amplitude_ready == true && frequency_ready == true && sweep_ready == true && offset_ready == true && file_name_val.Text != "")
                 {
-
-                    /* Replace File Stuff With Communication */
                     String fileName = file_name_val.Text;
-                    //If the file name ends with txt or csv
-                    if (fileName.EndsWith(".txt") || fileName.EndsWith(".csv"))
+                    //Default to .csv
+                    fileName += ".csv";
+                    //reset the label
+                    file_name_label.ForeColor = System.Drawing.Color.Black;
+                    file_name_label.Text = "Output File Name:";
+                    //get invalid file name characters
+                    char[] invalid = Path.GetInvalidFileNameChars();
+                    bool contains_invalid = false;
+                    //check if the filename has invalid characters
+                    for (int i = 0; i < invalid.Length; i++)
+                    {
+                        String c = invalid[i].ToString();
+                        if (fileName.Contains(c))
+                        {
+                            contains_invalid = true;
+                        }
+                    }
+                    //The file name does not have any invalid characters
+                    if (contains_invalid == false)
                     {
                         //reset the label
                         file_name_label.ForeColor = System.Drawing.Color.Black;
                         file_name_label.Text = "Output File Name:";
-                        //get invalid file name characters
-                        char[] invalid = Path.GetInvalidFileNameChars();
-                        bool contains_invalid = false;
-                        //check if the filename has invalid characters
-                        for (int i = 0; i < invalid.Length; i++)
+                        //set the path name
+                        String pathString = System.IO.Path.Combine(workspace, fileName);
+                        //if the file doesn't already exist
+                        if (!File.Exists(pathString))
                         {
-                            String c = invalid[i].ToString();
-                            if (fileName.Contains(c))
-                            {
-                                contains_invalid = true;
-                            }
-                        }
-                        //The file name does not have any invalid characters
-                        if (contains_invalid == false)
-                        {
+
                             //reset the label
                             file_name_label.ForeColor = System.Drawing.Color.Black;
                             file_name_label.Text = "Output File Name:";
-                            //set the path name
-                            String pathString = System.IO.Path.Combine(workspace, fileName);
-                            //if the file doesn't already exist
-                            if (!File.Exists(pathString))
+
+                            bool handshake_success;
+                            if (!debug)
                             {
+                                handshake_success = com.HandShake("HI");
+                            }
+                            else
+                            {
+                                handshake_success = true;
+                            }
 
-                                //reset the label
-                                file_name_label.ForeColor = System.Drawing.Color.Black;
-                                file_name_label.Text = "Output File Name:";
-
-                                bool handshake_success = true; //com.HandShake("HI");
-                                  
-                                if (handshake_success)
+                            if (handshake_success)
+                            {
+                                int i = 0;
+                                bool start = true, end = true, rate = true, sweep = true, amp = true, off = true;
+                                if (!debug)
                                 {
-                                    int i = 0;
-                                    bool start = true; // com.Transmit((i++) + "" + frequency_str_start);
-                                    bool end = true; // com.Transmit((i++) + "" + frequency_str_end);
-                                    bool rate = true; // com.Transmit((i++) + "" + sweep_rate_str);
+                                    start = com.Transmit((i++) + "" + frequency_str_start);
+                                    end = com.Transmit((i++) + "" + frequency_str_end);
+                                    rate = com.Transmit((i++) + "" + sweep_rate_str);
                                     string type;
                                     if (sweep_type)
                                     {
@@ -518,24 +531,36 @@ namespace Capstone_v1
                                         type = "1";
                                     }
 
-                                    bool sweep = true; // com.Transmit((i++) + "" + type);
-                                    bool amp = true; // com.Transmit((i++) + "" + amplitude_str);
-                                    bool off = true; // com.Transmit((i++) + "" + offset_str);
+                                    sweep = com.Transmit((i++) + "" + type);
+                                    amp = com.Transmit((i++) + "" + amplitude_str);
+                                    off = com.Transmit((i++) + "" + offset_str);
+                                }
 
-                                    if (start && end && rate && sweep && amp && off)
+
+                                if (start && end && rate && sweep && amp && off)
+                                {
+
+                                    //reset the button (will need to be moved to a different location later)
+                                    run_test_button.BackColor = System.Drawing.Color.Red;
+                                    run_test_button.Text = "Pause Test";
+
+                                    this.path = pathString;
+
+                                    if (!debug)
                                     {
-
-                                        //reset the button (will need to be moved to a different location later)
-                                        run_test_button.BackColor = System.Drawing.Color.Red;
-                                        run_test_button.Text = "Pause Test";
-
-                                        this.path = pathString;
-                                       /* using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
+                                        using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
                                         {
                                             file.WriteLine("Start Frequency: " + frequency_start);
                                             file.WriteLine("End Frequency: " + frequency_end);
                                             file.WriteLine("Amplitude: " + amplitude);
-                                            file.WriteLine("Sweep Rate: " + sweep);
+                                            if (sweep_type)
+                                            {
+                                                file.WriteLine("Linear Sweep Rate: " + sweep);
+                                            }
+                                            else
+                                            {
+                                                file.WriteLine("Logarithmic Sweep Rate: " + sweep);
+                                            }
                                             file.WriteLine("DC Offset: " + offset);
                                             file.WriteLine("Frequency Gain Phase Change");
                                             test_output_label.Text = "Test in Progress";
@@ -545,16 +570,24 @@ namespace Capstone_v1
                                                 file.WriteLine(output);
                                                 output = com.ReadIn();
                                             }
-                                        }*/
-
-                                        
+                                        }
+                                    }
+                                    else
+                                    {
                                         //dummy data is being written to a file
                                         using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
                                         {
                                             file.WriteLine("Start Frequency: " + frequency_start);
                                             file.WriteLine("End Frequency: " + frequency_end);
                                             file.WriteLine("Amplitude: " + amplitude);
-                                            file.WriteLine("Sweep Rate: " + sweep);
+                                            if (sweep_type)
+                                            {
+                                                file.WriteLine("Linear Sweep Rate: " + sweep);
+                                            }
+                                            else
+                                            {
+                                                file.WriteLine("Logarithmic Sweep Rate: " + sweep);
+                                            }
                                             file.WriteLine("DC Offset: " + offset);
                                             file.WriteLine("Frequency Gain Phase Change");
                                             for (i = 1; i < 100; i++)
@@ -563,41 +596,40 @@ namespace Capstone_v1
 
                                             }
                                         }
-                                        //set the test to complete (will need to be moved to a different location later)
-                                        test_complete = true;
+                                    }
 
-                                        //reset the output label (will need to be moved to a different location later)
-                                        test_output_label.ForeColor = System.Drawing.Color.Green;
-                                        test_output_label.Text = "Test Complete";
-                                    }
-                                    
-                                    else
-                                    {
-                                        
-                                    }
+                                    //set the test to complete (will need to be moved to a different location later)
+                                    test_complete = true;
+
+                                    //reset the output label (will need to be moved to a different location later)
+                                    test_output_label.ForeColor = System.Drawing.Color.Green;
+                                    test_output_label.Text = "Test Complete";
                                 }
-                                else { }
+
+                                else
+                                {
+                                    test_output_label.ForeColor = System.Drawing.Color.Red;
+                                    test_output_label.Text = "Data Transmission Failed";
+                                }
                             }
-                            //The file name alreay exists, set the label to invalid
-                            else
+                            else 
                             {
-                                file_name_label.ForeColor = System.Drawing.Color.Red;
-                                file_name_label.Text = "File name already exists";
+                                test_output_label.ForeColor = System.Drawing.Color.Red;
+                                test_output_label.Text = "Communication Failure";
                             }
                         }
-                        //The file name has invalid characters, set the label to invalid
+                        //The file name alreay exists, set the label to invalid
                         else
                         {
                             file_name_label.ForeColor = System.Drawing.Color.Red;
-                            file_name_label.Text = "Invalid File Name";
+                            file_name_label.Text = "File name already exists";
                         }
-
                     }
-                    //The filename has an invalid extension, set the label to invalid
+                    //The file name has invalid characters, set the label to invalid
                     else
                     {
                         file_name_label.ForeColor = System.Drawing.Color.Red;
-                        file_name_label.Text = "Invalid File Extension";
+                        file_name_label.Text = "Invalid File Name";
                     }
 
                 }

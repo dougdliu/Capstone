@@ -55,6 +55,7 @@
             this.dc_range = new System.Windows.Forms.Label();
             this.file_name_val = new System.Windows.Forms.TextBox();
             this.file_name_label = new System.Windows.Forms.Label();
+            this.csv_label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // f_start_val
@@ -295,7 +296,7 @@
             // 
             this.file_name_val.Location = new System.Drawing.Point(220, 393);
             this.file_name_val.Name = "file_name_val";
-            this.file_name_val.Size = new System.Drawing.Size(176, 26);
+            this.file_name_val.Size = new System.Drawing.Size(133, 26);
             this.file_name_val.TabIndex = 25;
             // 
             // file_name_label
@@ -307,11 +308,21 @@
             this.file_name_label.TabIndex = 26;
             this.file_name_label.Text = "Output File Name:";
             // 
+            // csv_label
+            // 
+            this.csv_label.AutoSize = true;
+            this.csv_label.Location = new System.Drawing.Point(359, 399);
+            this.csv_label.Name = "csv_label";
+            this.csv_label.Size = new System.Drawing.Size(36, 20);
+            this.csv_label.TabIndex = 27;
+            this.csv_label.Text = ".csv";
+            // 
             // Main_Page
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(840, 578);
+            this.Controls.Add(this.csv_label);
             this.Controls.Add(this.file_name_label);
             this.Controls.Add(this.file_name_val);
             this.Controls.Add(this.dc_range);
@@ -375,6 +386,7 @@
         private System.Windows.Forms.Label dc_range;
         private System.Windows.Forms.TextBox file_name_val;
         private System.Windows.Forms.Label file_name_label;
+        private System.Windows.Forms.Label csv_label;
     }
 }
 
