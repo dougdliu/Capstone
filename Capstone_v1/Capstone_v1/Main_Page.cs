@@ -42,7 +42,7 @@ namespace Capstone_v1
         string offset_str;
 
         //Make the communications object
-        private Communications com; 
+        //private Communications com; 
 
         public Main_Page(String ws)
         {
@@ -67,7 +67,7 @@ namespace Capstone_v1
             this.sweep_rate_str="";
             this.offset_str="";
 
-            this.com = new Communications();
+            //this.com = new Communications();
             
         }
 
@@ -103,6 +103,17 @@ namespace Capstone_v1
                         f_unit.ForeColor = System.Drawing.Color.Green;
                         f_unit.Text = "Valid";
                         frequency_start_ready = true;
+
+                        if (frequency_str_end != "")
+                        {
+                            float temp = Convert.ToSingle(frequency_str_end);
+                            if (temp < frequency_start)
+                            {
+                                frequency_ready = false;
+                                f_unit.ForeColor = System.Drawing.Color.Red;
+                                f_unit.Text = "Invalid; Start Must Be Less Than End";
+                            }
+                        }
                     }
                 }
                 //If the input is still empty
@@ -153,6 +164,17 @@ namespace Capstone_v1
                         f_unit.ForeColor = System.Drawing.Color.Green;
                         f_unit.Text = "Valid";
                         frequency_end_ready = true;
+
+                        if (frequency_str_start != "")
+                        {
+                            float temp = Convert.ToSingle(frequency_str_start);
+                            if (temp > frequency_end)
+                            {
+                                frequency_ready = false;
+                                f_unit.ForeColor = System.Drawing.Color.Red;
+                                f_unit.Text = "Invalid; Start Must Be Less Than End";
+                            }
+                        }
                     }
                 }
                 //If the input is still empty
@@ -478,15 +500,14 @@ namespace Capstone_v1
                                 file_name_label.ForeColor = System.Drawing.Color.Black;
                                 file_name_label.Text = "Output File Name:";
 
-                                bool handshake_success = com.HandShake("HI");
-
-//                                if(!com.HandShake("HI"))                                  
+                                bool handshake_success = true; //com.HandShake("HI");
+                                  
                                 if (handshake_success)
                                 {
                                     int i = 0;
-                                    bool start = com.Transmit((i++) + "" + frequency_str_start);
-                                    bool end = com.Transmit((i++) + "" + frequency_str_end);
-                                    bool rate = com.Transmit((i++) + "" + sweep_rate_str);
+                                    bool start = true; // com.Transmit((i++) + "" + frequency_str_start);
+                                    bool end = true; // com.Transmit((i++) + "" + frequency_str_end);
+                                    bool rate = true; // com.Transmit((i++) + "" + sweep_rate_str);
                                     string type;
                                     if (sweep_type)
                                     {
@@ -497,9 +518,9 @@ namespace Capstone_v1
                                         type = "1";
                                     }
 
-                                    bool sweep = com.Transmit((i++) + "" + type);
-                                    bool amp = com.Transmit((i++) + "" + amplitude_str);
-                                    bool off = com.Transmit((i++) + "" + offset_str);
+                                    bool sweep = true; // com.Transmit((i++) + "" + type);
+                                    bool amp = true; // com.Transmit((i++) + "" + amplitude_str);
+                                    bool off = true; // com.Transmit((i++) + "" + offset_str);
 
                                     if (start && end && rate && sweep && amp && off)
                                     {
@@ -509,7 +530,7 @@ namespace Capstone_v1
                                         run_test_button.Text = "Pause Test";
 
                                         this.path = pathString;
-                                        using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
+                                       /* using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
                                         {
                                             file.WriteLine("Start Frequency: " + frequency_start);
                                             file.WriteLine("End Frequency: " + frequency_end);
@@ -524,11 +545,11 @@ namespace Capstone_v1
                                                 file.WriteLine(output);
                                                 output = com.ReadIn();
                                             }
-                                        }
+                                        }*/
 
                                         
                                         //dummy data is being written to a file
-                                       /* using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
+                                        using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
                                         {
                                             file.WriteLine("Start Frequency: " + frequency_start);
                                             file.WriteLine("End Frequency: " + frequency_end);
@@ -536,12 +557,12 @@ namespace Capstone_v1
                                             file.WriteLine("Sweep Rate: " + sweep);
                                             file.WriteLine("DC Offset: " + offset);
                                             file.WriteLine("Frequency Gain Phase Change");
-                                            for (int i = 1; i < 100; i++)
+                                            for (i = 1; i < 100; i++)
                                             {
-                                                file.WriteLine(i + "\t" + i * i + "\t" + i * i * i);
+                                                file.WriteLine(i + "," + i * i + "," + i * i * i);
 
                                             }
-                                        }*/
+                                        }
                                         //set the test to complete (will need to be moved to a different location later)
                                         test_complete = true;
 

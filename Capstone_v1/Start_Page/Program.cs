@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Capstone_v1
+namespace Start_Page
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace Capstone_v1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Start_Page());
+            Application.Run(new Form1());
         }
     }
 }

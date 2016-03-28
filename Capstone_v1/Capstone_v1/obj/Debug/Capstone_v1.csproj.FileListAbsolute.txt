@@ -27,3 +27,5 @@ C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capst
 C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Phase_Change_Results.resources
 C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Properties.Resources.resources
 C:\Users\dougd\Documents\GitHub\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.csproj.GenerateResource.Cache
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.Start_Page.resources
+C:\Users\ashly\Desktop\CSE 424\Capstone\Capstone_v1\Capstone_v1\obj\Debug\Capstone_v1.View_Test.resources
