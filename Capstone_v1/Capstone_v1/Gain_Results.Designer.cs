@@ -28,57 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.Gain_Data = new System.Windows.Forms.RichTextBox();
             this.Gain_Chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Gain_Chart_Button = new System.Windows.Forms.Button();
             this.Gain_Data_Button = new System.Windows.Forms.Button();
             this.txtChartValue = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtChartSelect = new System.Windows.Forms.ToolStripStatusLabel();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Gain_Chart)).BeginInit();
             this.SuspendLayout();
             // 
             // Gain_Data
             // 
-            this.Gain_Data.Location = new System.Drawing.Point(73, 57);
+            this.Gain_Data.Location = new System.Drawing.Point(49, 37);
+            this.Gain_Data.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Gain_Data.Name = "Gain_Data";
-            this.Gain_Data.Size = new System.Drawing.Size(325, 404);
+            this.Gain_Data.Size = new System.Drawing.Size(218, 264);
             this.Gain_Data.TabIndex = 8;
             this.Gain_Data.Text = "";
             // 
             // Gain_Chart
             // 
-            chartArea2.AxisX.LabelStyle.Interval = 0D;
-            chartArea2.AxisX.ScrollBar.IsPositionedInside = false;
-            chartArea2.AxisY.LabelStyle.Interval = 0D;
-            chartArea2.AxisY.ScrollBar.IsPositionedInside = false;
-            chartArea2.CursorX.IsUserEnabled = true;
-            chartArea2.CursorX.IsUserSelectionEnabled = true;
-            chartArea2.CursorY.IsUserEnabled = true;
-            chartArea2.CursorY.IsUserSelectionEnabled = true;
-            chartArea2.Name = "ChartArea1";
-            this.Gain_Chart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.Gain_Chart.Legends.Add(legend2);
-            this.Gain_Chart.Location = new System.Drawing.Point(484, 57);
+            chartArea1.AxisX.LabelStyle.Interval = 0D;
+            chartArea1.AxisX.ScrollBar.IsPositionedInside = false;
+            chartArea1.AxisY.LabelStyle.Interval = 0D;
+            chartArea1.AxisY.ScrollBar.IsPositionedInside = false;
+            chartArea1.CursorX.IsUserEnabled = true;
+            chartArea1.CursorX.IsUserSelectionEnabled = true;
+            chartArea1.CursorY.IsUserEnabled = true;
+            chartArea1.CursorY.IsUserSelectionEnabled = true;
+            chartArea1.Name = "ChartArea1";
+            this.Gain_Chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.Gain_Chart.Legends.Add(legend1);
+            this.Gain_Chart.Location = new System.Drawing.Point(323, 37);
+            this.Gain_Chart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Gain_Chart.Name = "Gain_Chart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.Gain_Chart.Series.Add(series2);
-            this.Gain_Chart.Size = new System.Drawing.Size(578, 404);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.Gain_Chart.Series.Add(series1);
+            this.Gain_Chart.Size = new System.Drawing.Size(385, 263);
             this.Gain_Chart.TabIndex = 9;
             this.Gain_Chart.Text = "chart1";
             this.Gain_Chart.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.Normal;
+            this.Gain_Chart.Click += new System.EventHandler(this.Gain_Chart_Click);
             // 
             // Gain_Chart_Button
             // 
-            this.Gain_Chart_Button.Location = new System.Drawing.Point(673, 472);
+            this.Gain_Chart_Button.Location = new System.Drawing.Point(512, 309);
+            this.Gain_Chart_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Gain_Chart_Button.Name = "Gain_Chart_Button";
-            this.Gain_Chart_Button.Size = new System.Drawing.Size(222, 41);
+            this.Gain_Chart_Button.Size = new System.Drawing.Size(148, 27);
             this.Gain_Chart_Button.TabIndex = 10;
             this.Gain_Chart_Button.Text = "Plot Gain Results";
             this.Gain_Chart_Button.UseVisualStyleBackColor = true;
@@ -86,9 +91,10 @@
             // 
             // Gain_Data_Button
             // 
-            this.Gain_Data_Button.Location = new System.Drawing.Point(161, 472);
+            this.Gain_Data_Button.Location = new System.Drawing.Point(107, 307);
+            this.Gain_Data_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Gain_Data_Button.Name = "Gain_Data_Button";
-            this.Gain_Data_Button.Size = new System.Drawing.Size(158, 41);
+            this.Gain_Data_Button.Size = new System.Drawing.Size(105, 27);
             this.Gain_Data_Button.TabIndex = 11;
             this.Gain_Data_Button.Text = "View Gain Results";
             this.Gain_Data_Button.UseVisualStyleBackColor = true;
@@ -104,15 +110,27 @@
             this.txtChartSelect.Name = "txtChartSelect";
             this.txtChartSelect.Size = new System.Drawing.Size(23, 23);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(357, 309);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(127, 27);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Manual Zoom";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // Gain_Results
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1112, 534);
+            this.ClientSize = new System.Drawing.Size(741, 347);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.Gain_Data_Button);
             this.Controls.Add(this.Gain_Chart_Button);
             this.Controls.Add(this.Gain_Chart);
             this.Controls.Add(this.Gain_Data);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Gain_Results";
             this.Text = "Gain_Results";
             this.Load += new System.EventHandler(this.Form3_Load);
@@ -124,10 +142,11 @@
         #endregion
 
         private System.Windows.Forms.RichTextBox Gain_Data;
-        private System.Windows.Forms.DataVisualization.Charting.Chart Gain_Chart;
         private System.Windows.Forms.Button Gain_Chart_Button;
         private System.Windows.Forms.Button Gain_Data_Button;
         private System.Windows.Forms.ToolStripStatusLabel txtChartValue;
         private System.Windows.Forms.ToolStripStatusLabel txtChartSelect;
+        private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.DataVisualization.Charting.Chart Gain_Chart;
     }
 }

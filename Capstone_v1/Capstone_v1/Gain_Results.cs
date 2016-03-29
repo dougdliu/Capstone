@@ -80,5 +80,18 @@ namespace Capstone_v1
         {
             txtChartValue.Text = x.ToString("F4") + ", " + y.ToString("F4");
         }
+
+        /*"Manual Zoom" button - to manually select parameters to zoom the produced results on graph*/
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            ManualZoomG zoom = new ManualZoomG();
+            zoom.ownerGraph1 = this;
+            zoom.ShowDialog();
+        }
+
+        private void Gain_Chart_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
