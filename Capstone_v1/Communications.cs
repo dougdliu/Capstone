@@ -6,8 +6,9 @@ public class Communications
 {
     private SerialPort serial;
     private bool tryAgain;
+    public string output;
 
-	public Communications()
+	public Communications() 
 	{
         // Initialization of Serial Communication Interfaces //
         serial = new SerialPort();
@@ -23,6 +24,8 @@ public class Communications
         string[] port = SerialPort.GetPortNames();
         serial.PortName = port[1];
         tryAgain = false;
+        output = "";
+
 	}
 
     public bool HandShake(string hndShk)
@@ -95,7 +98,7 @@ public class Communications
         serial.Close();
         return true;
     }
-    public string ReadIn()
+    public void ReadIn()
     {
         byte[] dataIn = new byte[45];
         bool tryAgain = true;
@@ -137,7 +140,7 @@ public class Communications
             }
             string message = System.Text.Encoding.ASCII.GetString(dataIn);
             serial.Close();
-            return message; //float.Parse(message);
+            output= message; //float.Parse(message);
         }
     }
 }

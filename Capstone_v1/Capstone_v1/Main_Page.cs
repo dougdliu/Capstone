@@ -564,11 +564,18 @@ namespace Capstone_v1
                                             file.WriteLine("DC Offset: " + offset);
                                             file.WriteLine("Frequency Gain Phase Change");
                                             test_output_label.Text = "Test in Progress";
-                                            String output = com.ReadIn();
+                                            com.ReadIn();
+                                            String output = com.output;
                                             while (output[0] != 'E')
                                             {
                                                 file.WriteLine(output);
-                                                output = com.ReadIn();
+                                                System.Threading.Thread newThread =new System.Threading.Thread(com.ReadIn);
+                                                newThread.Start();
+                                                while(output==com.output)
+                                                {
+                                                    
+                                                }
+                                                output = com.output;
                                             }
                                         }
                                     }
