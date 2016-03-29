@@ -187,18 +187,16 @@
             this.rate_unit.AutoSize = true;
             this.rate_unit.Location = new System.Drawing.Point(676, 230);
             this.rate_unit.Name = "rate_unit";
-            this.rate_unit.Size = new System.Drawing.Size(41, 20);
+            this.rate_unit.Size = new System.Drawing.Size(0, 20);
             this.rate_unit.TabIndex = 13;
-            this.rate_unit.Text = "here";
             // 
             // test_output_label
             // 
             this.test_output_label.AutoSize = true;
             this.test_output_label.Location = new System.Drawing.Point(402, 434);
             this.test_output_label.Name = "test_output_label";
-            this.test_output_label.Size = new System.Drawing.Size(41, 20);
+            this.test_output_label.Size = new System.Drawing.Size(0, 20);
             this.test_output_label.TabIndex = 14;
-            this.test_output_label.Text = "here";
             // 
             // f_end_val
             // 
@@ -278,9 +276,8 @@
             this.rate_range.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rate_range.Location = new System.Drawing.Point(364, 253);
             this.rate_range.Name = "rate_range";
-            this.rate_range.Size = new System.Drawing.Size(32, 15);
+            this.rate_range.Size = new System.Drawing.Size(0, 15);
             this.rate_range.TabIndex = 23;
-            this.rate_range.Text = "here";
             // 
             // dc_range
             // 

@@ -112,7 +112,7 @@ namespace Capstone_v1
                         if (frequency_str_end != "")
                         {
                             float temp = Convert.ToSingle(frequency_str_end);
-                            if (temp < frequency_start)
+                            if (temp <= frequency_start)
                             {
                                 frequency_ready = false;
                                 f_unit.ForeColor = System.Drawing.Color.Red;
@@ -173,7 +173,7 @@ namespace Capstone_v1
                         if (frequency_str_start != "")
                         {
                             float temp = Convert.ToSingle(frequency_str_start);
-                            if (temp > frequency_end)
+                            if (temp >= frequency_end)
                             {
                                 frequency_ready = false;
                                 f_unit.ForeColor = System.Drawing.Color.Red;
@@ -515,7 +515,7 @@ namespace Capstone_v1
                             if (handshake_success)
                             {
                                 int i = 0;
-                                bool start = true, end = true, rate = true, sweep = true, amp = true, off = true;
+                                bool start = true, end = true, rate = true, sw = true, amp = true, off = true;
                                 if (!debug)
                                 {
                                     start = com.Transmit((i++) + "" + frequency_str_start);
@@ -531,13 +531,13 @@ namespace Capstone_v1
                                         type = "1";
                                     }
 
-                                    sweep = com.Transmit((i++) + "" + type);
+                                    sw = com.Transmit((i++) + "" + type);
                                     amp = com.Transmit((i++) + "" + amplitude_str);
                                     off = com.Transmit((i++) + "" + offset_str);
                                 }
 
 
-                                if (start && end && rate && sweep && amp && off)
+                                if (start && end && rate && sw && amp && off)
                                 {
 
                                     //reset the button (will need to be moved to a different location later)
@@ -555,11 +555,11 @@ namespace Capstone_v1
                                             file.WriteLine("Amplitude: " + amplitude);
                                             if (sweep_type)
                                             {
-                                                file.WriteLine("Linear Sweep Rate: " + sweep);
+                                                file.WriteLine("Linear Sweep Rate: " + this.sweep);
                                             }
                                             else
                                             {
-                                                file.WriteLine("Logarithmic Sweep Rate: " + sweep);
+                                                file.WriteLine("Logarithmic Sweep Rate: " + this.sweep);
                                             }
                                             file.WriteLine("DC Offset: " + offset);
                                             file.WriteLine("Frequency Gain Phase Change");
@@ -582,11 +582,11 @@ namespace Capstone_v1
                                             file.WriteLine("Amplitude: " + amplitude);
                                             if (sweep_type)
                                             {
-                                                file.WriteLine("Linear Sweep Rate: " + sweep);
+                                                file.WriteLine("Linear Sweep Rate: " + this.sweep);
                                             }
                                             else
                                             {
-                                                file.WriteLine("Logarithmic Sweep Rate: " + sweep);
+                                                file.WriteLine("Logarithmic Sweep Rate: " + this.sweep);
                                             }
                                             file.WriteLine("DC Offset: " + offset);
                                             file.WriteLine("Frequency Gain Phase Change");
@@ -600,6 +600,9 @@ namespace Capstone_v1
 
                                     //set the test to complete (will need to be moved to a different location later)
                                     test_complete = true;
+
+                                    run_test_button.BackColor = System.Drawing.Color.Green;
+                                    run_test_button.Text = "Start Test";
 
                                     //reset the output label (will need to be moved to a different location later)
                                     test_output_label.ForeColor = System.Drawing.Color.Green;
