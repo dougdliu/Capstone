@@ -76,19 +76,20 @@
             // 
             // enter_button
             // 
+            this.enter_button.BackColor = System.Drawing.Color.Green;
             this.enter_button.Location = new System.Drawing.Point(445, 150);
             this.enter_button.Name = "enter_button";
             this.enter_button.Size = new System.Drawing.Size(102, 33);
             this.enter_button.TabIndex = 4;
             this.enter_button.Text = "Enter";
-            this.enter_button.UseVisualStyleBackColor = true;
+            this.enter_button.UseVisualStyleBackColor = false;
             this.enter_button.Click += new System.EventHandler(this.button2_Click);
             // 
             // gain_button
             // 
             this.gain_button.Location = new System.Drawing.Point(123, 299);
             this.gain_button.Name = "gain_button";
-            this.gain_button.Size = new System.Drawing.Size(138, 50);
+            this.gain_button.Size = new System.Drawing.Size(138, 74);
             this.gain_button.TabIndex = 5;
             this.gain_button.Text = "View Gain Results";
             this.gain_button.UseVisualStyleBackColor = true;
@@ -99,7 +100,7 @@
             // 
             this.phase_change_button.Location = new System.Drawing.Point(356, 299);
             this.phase_change_button.Name = "phase_change_button";
-            this.phase_change_button.Size = new System.Drawing.Size(140, 50);
+            this.phase_change_button.Size = new System.Drawing.Size(140, 74);
             this.phase_change_button.TabIndex = 6;
             this.phase_change_button.Text = "View Phase Change Results";
             this.phase_change_button.UseVisualStyleBackColor = true;

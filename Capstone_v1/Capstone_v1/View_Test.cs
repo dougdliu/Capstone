@@ -46,43 +46,53 @@ namespace Capstone_v1
                 if (File.Exists(path))
                 {
                     string[] data = System.IO.File.ReadAllLines(@path);
-                    double[] data1 = new double[data.Length - 6];
-                    double[] data2 = new double[data.Length - 6];
-                    double[] data3 = new double[data.Length - 6];
-
-                    if (data[0].StartsWith("Start Frequency:"))
+                    if (data.Length > 6)
                     {
-                        try
-                        {
-                            for (int i = 0; i < data.Length - 6; i++)
-                            {
-                                data1[i] = Convert.ToDouble(data[i + 6].Split(',')[0]);
-                                data2[i] = Convert.ToDouble(data[i + 6].Split(',')[1]);
-                                data3[i] = Convert.ToDouble(data[i + 6].Split(',')[2]);
-                            }
+                        double[] data1 = new double[data.Length - 6];
+                        double[] data2 = new double[data.Length - 6];
+                        double[] data3 = new double[data.Length - 6];
 
-                            if(data[3].StartsWith("Linear"))
+                        if (data[0].StartsWith("Start Frequency:"))
+                        {
+                            try
                             {
-                                type = true;
+                                for (int i = 0; i < data.Length - 6; i++)
+                                {
+                                    data1[i] = Convert.ToDouble(data[i + 6].Split(',')[0]);
+                                    data2[i] = Convert.ToDouble(data[i + 6].Split(',')[1]);
+                                    data3[i] = Convert.ToDouble(data[i + 6].Split(',')[2]);
+                                }
+
+                                if (data[3].StartsWith("Linear"))
+                                {
+                                    type = true;
+                                }
+                                else
+                                {
+                                    type = false;
+                                }
+                                gain_button.Visible = true;
+                                phase_change_button.Visible = true;
+                                Output_Label.ForeColor = System.Drawing.Color.Green;
+                                Output_Label.Text = "View Results By Clicking on the Buttons Below:";
+
                             }
-                            else
+                            catch (Exception)
                             {
-                                type = false;
+                                Output_Label.ForeColor = System.Drawing.Color.Red;
+                                Output_Label.Text = "Data in File not valid";
+                                gain_button.Visible = false;
+                                phase_change_button.Visible = false;
                             }
-                            gain_button.Visible = true;
-                            phase_change_button.Visible = true;
-                            Output_Label.ForeColor = System.Drawing.Color.Green;
-                            Output_Label.Text = "View Results By Clicking on the Buttons Below:";
 
                         }
-                        catch (Exception)
+                        else
                         {
                             Output_Label.ForeColor = System.Drawing.Color.Red;
                             Output_Label.Text = "Data in File not valid";
                             gain_button.Visible = false;
                             phase_change_button.Visible = false;
                         }
-
                     }
                     else
                     {
