@@ -89,9 +89,6 @@ namespace Capstone_v1
             zoom.ShowDialog();
         }
 
-        private void Gain_Chart_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

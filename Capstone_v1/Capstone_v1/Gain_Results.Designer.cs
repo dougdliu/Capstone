@@ -37,16 +37,15 @@
             this.Gain_Data_Button = new System.Windows.Forms.Button();
             this.txtChartValue = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtChartSelect = new System.Windows.Forms.ToolStripStatusLabel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.manual_zoom_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Gain_Chart)).BeginInit();
             this.SuspendLayout();
             // 
             // Gain_Data
             // 
-            this.Gain_Data.Location = new System.Drawing.Point(49, 37);
-            this.Gain_Data.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Gain_Data.Location = new System.Drawing.Point(74, 57);
             this.Gain_Data.Name = "Gain_Data";
-            this.Gain_Data.Size = new System.Drawing.Size(218, 264);
+            this.Gain_Data.Size = new System.Drawing.Size(325, 404);
             this.Gain_Data.TabIndex = 8;
             this.Gain_Data.Text = "";
             // 
@@ -64,26 +63,24 @@
             this.Gain_Chart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.Gain_Chart.Legends.Add(legend1);
-            this.Gain_Chart.Location = new System.Drawing.Point(323, 37);
-            this.Gain_Chart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Gain_Chart.Location = new System.Drawing.Point(484, 57);
             this.Gain_Chart.Name = "Gain_Chart";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.Gain_Chart.Series.Add(series1);
-            this.Gain_Chart.Size = new System.Drawing.Size(385, 263);
+            this.Gain_Chart.Size = new System.Drawing.Size(578, 405);
             this.Gain_Chart.TabIndex = 9;
             this.Gain_Chart.Text = "chart1";
             this.Gain_Chart.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.Normal;
-            this.Gain_Chart.Click += new System.EventHandler(this.Gain_Chart_Click);
+            
             // 
             // Gain_Chart_Button
             // 
-            this.Gain_Chart_Button.Location = new System.Drawing.Point(512, 309);
-            this.Gain_Chart_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Gain_Chart_Button.Location = new System.Drawing.Point(768, 475);
             this.Gain_Chart_Button.Name = "Gain_Chart_Button";
-            this.Gain_Chart_Button.Size = new System.Drawing.Size(148, 27);
+            this.Gain_Chart_Button.Size = new System.Drawing.Size(222, 42);
             this.Gain_Chart_Button.TabIndex = 10;
             this.Gain_Chart_Button.Text = "Plot Gain Results";
             this.Gain_Chart_Button.UseVisualStyleBackColor = true;
@@ -91,10 +88,9 @@
             // 
             // Gain_Data_Button
             // 
-            this.Gain_Data_Button.Location = new System.Drawing.Point(107, 307);
-            this.Gain_Data_Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Gain_Data_Button.Location = new System.Drawing.Point(160, 472);
             this.Gain_Data_Button.Name = "Gain_Data_Button";
-            this.Gain_Data_Button.Size = new System.Drawing.Size(105, 27);
+            this.Gain_Data_Button.Size = new System.Drawing.Size(158, 42);
             this.Gain_Data_Button.TabIndex = 11;
             this.Gain_Data_Button.Text = "View Gain Results";
             this.Gain_Data_Button.UseVisualStyleBackColor = true;
@@ -110,27 +106,27 @@
             this.txtChartSelect.Name = "txtChartSelect";
             this.txtChartSelect.Size = new System.Drawing.Size(23, 23);
             // 
-            // button1
+            // manual_zoom_button
             // 
-            this.button1.Location = new System.Drawing.Point(357, 309);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 27);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Manual Zoom";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.manual_zoom_button.Location = new System.Drawing.Point(536, 475);
+            this.manual_zoom_button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.manual_zoom_button.Name = "manual_zoom_button";
+            this.manual_zoom_button.Size = new System.Drawing.Size(190, 42);
+            this.manual_zoom_button.TabIndex = 12;
+            this.manual_zoom_button.Text = "Manual Zoom";
+            this.manual_zoom_button.UseVisualStyleBackColor = true;
+            this.manual_zoom_button.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Gain_Results
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(741, 347);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(1112, 534);
+            this.Controls.Add(this.manual_zoom_button);
             this.Controls.Add(this.Gain_Data_Button);
             this.Controls.Add(this.Gain_Chart_Button);
             this.Controls.Add(this.Gain_Chart);
             this.Controls.Add(this.Gain_Data);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Gain_Results";
             this.Text = "Gain_Results";
             this.Load += new System.EventHandler(this.Form3_Load);
@@ -146,7 +142,7 @@
         private System.Windows.Forms.Button Gain_Data_Button;
         private System.Windows.Forms.ToolStripStatusLabel txtChartValue;
         private System.Windows.Forms.ToolStripStatusLabel txtChartSelect;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button manual_zoom_button;
         public System.Windows.Forms.DataVisualization.Charting.Chart Gain_Chart;
     }
 }

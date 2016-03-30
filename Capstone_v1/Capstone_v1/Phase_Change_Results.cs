@@ -64,10 +64,7 @@ namespace Capstone_v1
             streamReader.Close();
         }
 
-        private void Phase_Change_Chart_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         /*"Manual Zoom" button - to manually select parameters to zoom the produced results on graph*/
         private void button1_Click_1(object sender, EventArgs e)
