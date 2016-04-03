@@ -48,7 +48,7 @@ namespace Capstone_v1
         public Main_Page(String ws)
         {
             /*Set to true when testing software without edison, false when testing software with edison*/
-            debug = false;
+            debug = true;
             this.workspace = ws;
             this.test_complete = false;
             this.combo_ready = false;
@@ -266,8 +266,8 @@ namespace Capstone_v1
             {
                 //set the correct unit and range label
                 rate_unit.ForeColor = System.Drawing.Color.Black;
-                rate_unit.Text = "kHz/s";
-                rate_range.Text = "0-1000 kHz/s";
+                rate_unit.Text = "Hz/s";
+                rate_range.Text = "0-1000 Hz/s";
                 //set the ready flag to true
                 combo_ready = true;
                 //make the text box not read only
@@ -598,9 +598,12 @@ namespace Capstone_v1
                                             }
                                             file.WriteLine("DC Offset: " + offset);
                                             file.WriteLine("Frequency Gain Phase Change");
-                                            for (i = 1; i < 100; i++)
+                                            Random test = new Random();
+                                            float f = frequency_start;
+                                            for (i = 1; f <= frequency_end; i++)
                                             {
-                                                file.WriteLine(i + "," + i * i + "," + i * i * i);
+                                                file.WriteLine(f + "," + Math.Round((test.NextDouble()*amplitude*i),3) + "," + Math.Round((test.NextDouble()*offset*i),3));
+                                                f = (frequency_start + (i * sweep));
 
                                             }
                                         }

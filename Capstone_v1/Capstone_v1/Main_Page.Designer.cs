@@ -175,7 +175,7 @@
             this.rate_type.FormattingEnabled = true;
             this.rate_type.Items.AddRange(new object[] {
             "Logarithmic (decades/s)",
-            "Linear (kHz/s)"});
+            "Linear (Hz/s)"});
             this.rate_type.Location = new System.Drawing.Point(154, 222);
             this.rate_type.Name = "rate_type";
             this.rate_type.Size = new System.Drawing.Size(183, 28);
