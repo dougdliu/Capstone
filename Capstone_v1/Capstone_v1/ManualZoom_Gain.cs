@@ -17,6 +17,7 @@ namespace Capstone_v1
         public ManualZoomG()
         {
             InitializeComponent();
+            
         }
 
         private void ManualZoom_Load(object sender, EventArgs e)
@@ -25,7 +26,7 @@ namespace Capstone_v1
         }
 
         /*for individual text boxes to properly display results when user inputs numbers*/
-        public void Gain_Results_Shown(object sender, EventArgs e)
+        public void Gain_Results_Shown()
         {
             textBox2.Text = ownerGraph1.Gain_Chart.ChartAreas[0].AxisX.ScaleView.ViewMinimum.ToString();
             textBox1.Text = ownerGraph1.Gain_Chart.ChartAreas[0].AxisX.ScaleView.ViewMaximum.ToString();

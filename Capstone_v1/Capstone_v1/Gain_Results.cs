@@ -24,6 +24,8 @@ namespace Capstone_v1
             this.path = ws;
             this.type = type;
             InitializeComponent();
+            view_chart();
+            view_data();
 
             /*IGNORE THIS: JUST FOR TESTING A CHART EXTENSION*/
             //AttachChartControl();
@@ -36,33 +38,45 @@ namespace Capstone_v1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(type==false)
+            view_chart();
+        }
+
+        private void view_chart()
+        {
+            if (type == false)
             {
                 Gain_Chart.ChartAreas["ChartArea1"].AxisX.IsLogarithmic = true;
             }
             string[] data = System.IO.File.ReadAllLines(@path); // read all lines in the file
-            double[] data2 = new double[data.Length-6]; // make the data from the text file doubles (convert string)
-            double[] data3 = new double[data.Length-6];
+            double[] data2 = new double[data.Length - 6]; // make the data from the text file doubles (convert string)
+            double[] data3 = new double[data.Length - 6];
 
-            for (int i = 0; i < data.Length-6; i++)
+            for (int i = 0; i < data.Length - 6; i++)
             {
-                data2[i] = Convert.ToDouble(data[i+6].Split(',')[0]);
-                data3[i] = Convert.ToDouble(data[i+6].Split(',')[1]);
+                data2[i] = Convert.ToDouble(data[i + 6].Split(',')[0]);
+                data3[i] = Convert.ToDouble(data[i + 6].Split(',')[1]);
             }
 
             for (int i = 0; i < data2.Length; i++)
             {
                 Gain_Chart.Series["Series1"].Points.AddXY(data2[i], data3[i]);
             }
+        }
+
+        private async void button2_Click(object sender, EventArgs e)
+        {
+
+            view_data();
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void view_data()
         {
-            
-            StreamReader streamReader = new StreamReader(@path);
-            Gain_Data.Text = streamReader.ReadToEnd(); // large empty space, for displaying contents inside file
-            streamReader.Close();
+            using (StreamReader streamReader = new StreamReader(@path))
+            {
+                Gain_Data.Text = streamReader.ReadToEnd(); // large empty space, for displaying contents inside file
+                streamReader.Close();
+            }
         }
 
         private void AttachChartControl()

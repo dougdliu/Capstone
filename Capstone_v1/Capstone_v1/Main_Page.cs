@@ -48,7 +48,7 @@ namespace Capstone_v1
         public Main_Page(String ws)
         {
             /*Set to true when testing software without edison, false when testing software with edison*/
-            debug = true;
+            debug = false;
             this.workspace = ws;
             this.test_complete = false;
             this.combo_ready = false;
@@ -569,12 +569,13 @@ namespace Capstone_v1
                                             while (output[0] != 'E')
                                             {
                                                 file.WriteLine(output);
-                                                System.Threading.Thread newThread =new System.Threading.Thread(com.ReadIn);
-                                                newThread.Start();
-                                                while(output==com.output)
-                                                {
+                                                //System.Threading.Thread newThread =new System.Threading.Thread(com.ReadIn);
+                                                //newThread.Start();
+                                                //while(output==com.output)
+                                                //{
                                                     
-                                                }
+                                                //}
+                                                com.ReadIn();
                                                 output = com.output;
                                             }
                                         }
