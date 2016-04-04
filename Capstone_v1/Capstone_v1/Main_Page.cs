@@ -116,7 +116,7 @@ namespace Capstone_v1
                             {
                                 frequency_ready = false;
                                 f_unit.ForeColor = System.Drawing.Color.Red;
-                                f_unit.Text = "Invalid; Start Must Be Less Than End";
+                                f_unit.Text = "Invalid";
                             }
                         }
                     }
@@ -177,7 +177,7 @@ namespace Capstone_v1
                             {
                                 frequency_ready = false;
                                 f_unit.ForeColor = System.Drawing.Color.Red;
-                                f_unit.Text = "Invalid; Start Must Be Less Than End";
+                                f_unit.Text = "Invalid";
                             }
                         }
                     }

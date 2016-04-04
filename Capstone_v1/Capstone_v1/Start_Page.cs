@@ -39,11 +39,13 @@ namespace Capstone_v1
         {
             if (selected_action == 0)
             {
+                Error_Label.Text = "";
                 Set_Workspace frm = new Set_Workspace();
                 frm.Show();
             }
             else if (selected_action == 1)
             {
+                Error_Label.Text = "";
                 View_Test frm = new View_Test();
                 frm.Show();
             }
