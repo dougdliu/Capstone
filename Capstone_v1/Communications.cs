@@ -28,7 +28,7 @@ public class Communications
         serial.Parity = Parity.Odd;
         serial.Encoding = System.Text.Encoding.GetEncoding(1252);
         string[] port = SerialPort.GetPortNames();
-        serial.PortName = port[1];
+        serial.PortName = port[0];
         tryAgain = false;
         output = "";
 
