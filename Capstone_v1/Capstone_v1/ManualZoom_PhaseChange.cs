@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Made for Capstone Project for MFC Systems Fall 2015-Spring 2016
+ * Manual_Zoom_PhaseChange Version 1
+ * Developed By: Alisha Geis
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

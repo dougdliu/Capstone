@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Made for Capstone Project for MFC Systems Fall 2015-Spring 2016
+ * Communications Version 1
+ * Developed By: Alexander Enriquez
+ */ 
+
+using System;
 using System.IO.Ports;  // For Serial Communication //
 using System.Threading; // For sleep() //
 

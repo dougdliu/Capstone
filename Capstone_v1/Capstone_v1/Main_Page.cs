@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Made for Capstone Project for MFC Systems Fall 2015-Spring 2016
+ * Main_Page Version 1
+ * Developed By: Ashley Krueger
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +18,11 @@ using System.Windows.Forms;
 
 namespace Capstone_v1
 {
+    /* Reads in user input.
+     * Connects to the Edison to run the test (WHEN debug (line 64) IS SET TO FALSE).
+     * Runs the test and allows the user to view the results.
+     */ 
+
     //The main input page for making new tests
     public partial class Main_Page : Form
     {
@@ -47,7 +58,9 @@ namespace Capstone_v1
 
         public Main_Page(String ws)
         {
-            /*Set to true when testing software without edison, false when testing software with edison*/
+            /*Set to true when testing software without edison, 
+             * false when testing software with edison
+             */
             debug = true;
             this.workspace = ws;
             this.test_complete = false;
@@ -518,6 +531,7 @@ namespace Capstone_v1
                                 bool start = true, end = true, rate = true, sw = true, amp = true, off = true;
                                 if (!debug)
                                 {
+                                    //communication stuff: transmit the user input to the Edison
                                     start = com.Transmit((i++) + "" + frequency_str_start);
                                     end = com.Transmit((i++) + "" + frequency_str_end);
                                     rate = com.Transmit((i++) + "" + sweep_rate_str);
@@ -548,8 +562,11 @@ namespace Capstone_v1
 
                                     if (!debug)
                                     {
+                                        //Edison communication
                                         using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
                                         {
+
+                                            //initialize the file with the user inputs
                                             file.WriteLine("Start Frequency: " + frequency_start);
                                             file.WriteLine("End Frequency: " + frequency_end);
                                             file.WriteLine("Amplitude: " + amplitude);
@@ -564,17 +581,24 @@ namespace Capstone_v1
                                             file.WriteLine("DC Offset: " + offset);
                                             file.WriteLine("Frequency Gain Phase Change");
                                             test_output_label.Text = "Test in Progress";
+                                            //read the output from the Edison
                                             com.ReadIn();
                                             String output = com.output;
+                                            //While we have not reached the end of the output
                                             while (output[0] != 'E')
                                             {
+                                                //write the output to the file
                                                 file.WriteLine(output);
+
+                                                /* Multithreading should be added here in the future. */
                                                 //System.Threading.Thread newThread =new System.Threading.Thread(com.ReadIn);
                                                 //newThread.Start();
                                                 //while(output==com.output)
                                                 //{
                                                     
                                                 //}
+                                                
+                                                //Read in the next output
                                                 com.ReadIn();
                                                 output = com.output;
                                             }
@@ -585,6 +609,7 @@ namespace Capstone_v1
                                         //dummy data is being written to a file
                                         using (System.IO.StreamWriter file = new System.IO.StreamWriter(@pathString))
                                         {
+                                            //write the user inputs to the file
                                             file.WriteLine("Start Frequency: " + frequency_start);
                                             file.WriteLine("End Frequency: " + frequency_end);
                                             file.WriteLine("Amplitude: " + amplitude);
@@ -598,11 +623,13 @@ namespace Capstone_v1
                                             }
                                             file.WriteLine("DC Offset: " + offset);
                                             file.WriteLine("Frequency Gain Phase Change");
+
+                                            //Write random data to the file at each of the intervals for frequency
                                             Random test = new Random();
                                             float f = frequency_start;
                                             for (i = 1; f <= frequency_end; i++)
                                             {
-                                                file.WriteLine(f + "," + Math.Round((test.NextDouble()*amplitude*i),3) + "," + Math.Round((test.NextDouble()*offset*i),3));
+                                                file.WriteLine(f + "," + Math.Round((test.NextDouble()*amplitude*i),3) + "," + Math.Round((test.NextDouble()*Math.Abs(offset*i)),3));
                                                 f = (frequency_start + (i * sweep));
 
                                             }
@@ -619,20 +646,21 @@ namespace Capstone_v1
                                     test_output_label.ForeColor = System.Drawing.Color.Green;
                                     test_output_label.Text = "Test Complete";
                                 }
-
+                                //Output an error when the data transmission fails
                                 else
                                 {
                                     test_output_label.ForeColor = System.Drawing.Color.Red;
                                     test_output_label.Text = "Data Transmission Failed";
                                 }
                             }
+                            //Output an error when the communication fails
                             else 
                             {
                                 test_output_label.ForeColor = System.Drawing.Color.Red;
                                 test_output_label.Text = "Communication Failure";
                             }
                         }
-                        //The file name alreay exists, set the label to invalid
+                        //The file name already exists, set the label to invalid
                         else
                         {
                             file_name_label.ForeColor = System.Drawing.Color.Red;
@@ -661,25 +689,17 @@ namespace Capstone_v1
         //View Gain Results Button Handling
         private void button2_Click(object sender, EventArgs e)
         {
-            //If the test is complete
-            //if (test_complete == true)
-            //{
                 //Open up the gain results form
                 Gain_Results frm = new Gain_Results(path, sweep_type);
                 frm.Show();
-            //}
         }
 
         //View Phase Change Results Button Handling
         private void button3_Click(object sender, EventArgs e)
         {
-            //If the test is complete
-            //if (test_complete == true)
-            //{
                 //Open up the phase change results form
                 Phase_Change_Results frm = new Phase_Change_Results(path, sweep_type);
                 frm.Show();
-            //}
         }
 
     }

@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Made for Capstone Project for MFC Systems Fall 2015-Spring 2016
+ * Set_Workspace Version 1
+ * Developed By: Ashley Krueger
+ */
+
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +19,11 @@ using System.Windows.Forms;
 
 namespace Capstone_v1
 {
+    /* The user selects a workspace to run tests in.
+     * The workspace is validated.
+     * The main_page form is opened.
+     */ 
+
     public partial class Set_Workspace : Form
     {
         public Set_Workspace()
