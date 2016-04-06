@@ -60,17 +60,11 @@
     <Compile Include="Main_Page.Designer.cs">
       <DependentUpon>Main_Page.cs</DependentUpon>
     </Compile>
-    <Compile Include="ManualZoom_Gain.cs">
+    <Compile Include="Manual_Zoom.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ManualZoom_Gain.Designer.cs">
-      <DependentUpon>ManualZoom_Gain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ManualZoom_PhaseChange.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ManualZoom_PhaseChange.Designer.cs">
-      <DependentUpon>ManualZoom_PhaseChange.cs</DependentUpon>
+    <Compile Include="Manual_Zoom.Designer.cs">
+      <DependentUpon>Manual_Zoom.cs</DependentUpon>
     </Compile>
     <Compile Include="Set_Workspace.cs">
       <SubType>Form</SubType>
@@ -107,11 +101,8 @@
     <EmbeddedResource Include="Main_Page.resx">
       <DependentUpon>Main_Page.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ManualZoom_Gain.resx">
-      <DependentUpon>ManualZoom_Gain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ManualZoom_PhaseChange.resx">
-      <DependentUpon>ManualZoom_PhaseChange.cs</DependentUpon>
+    <EmbeddedResource Include="Manual_Zoom.resx">
+      <DependentUpon>Manual_Zoom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Set_Workspace.resx">
       <DependentUpon>Set_Workspace.cs</DependentUpon>

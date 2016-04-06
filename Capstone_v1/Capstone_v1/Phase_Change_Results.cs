@@ -105,8 +105,8 @@ namespace Capstone_v1
         private void button1_Click_1(object sender, EventArgs e)
         {
             //Open manual zoom form
-            ManualZoomP zoom = new ManualZoomP();
-            zoom.ownerGraph2 = this;
+            Manual_Zoom zoom = new Manual_Zoom(Phase_Change_Chart);
+            //zoom.ownerGraph1 = this;
             zoom.ShowDialog();
         }
     }

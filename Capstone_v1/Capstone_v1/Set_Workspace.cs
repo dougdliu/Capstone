@@ -62,6 +62,7 @@ namespace Capstone_v1
                 }
                 
             }
+            Close();
             
         }
 
