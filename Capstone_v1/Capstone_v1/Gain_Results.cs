@@ -2,6 +2,7 @@
  * Made for Capstone Project for MFC Systems Fall 2015-Spring 2016
  * Gain_Results Version 1
  * Developed By: Ashley Krueger, Alisha Geis
+ * Modified From: Example on CodeAbout.WordPress.com
  */
 
 using System;
@@ -46,10 +47,6 @@ namespace Capstone_v1
             //AttachChartControl();
         }
 
-        private void Form3_Load(object sender, EventArgs e)
-        {
-            
-        }
 
         //When the plot button is clicked again (if the communication is multithreaded and the data
         //can be plotted while it is running) this will update the chart.

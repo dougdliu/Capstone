@@ -1,7 +1,8 @@
 ﻿/*
  * Made for Capstone Project for MFC Systems Fall 2015-Spring 2016
  * Manual_Zoom_PhaseChange Version 1
- * Developed By: Alisha Geis
+ * Developed By: Alisha Geis, Ashley Krueger
+ * Modified from: Code originally developed by MFC Systems, Matt Dion
  */
 
 using System;
@@ -19,7 +20,6 @@ namespace Capstone_v1
 {
     public partial class Manual_Zoom : Form
     {
-        //public Phase_Change_Results ownerGraph2; //connects to Phase_Change_Results.cs, for "Manual Zoom" button
         Chart Graph;
 
         public Manual_Zoom(Chart Graph)
@@ -28,11 +28,6 @@ namespace Capstone_v1
             InitializeComponent();
             View_Current_Axes();
             
-        }
-
-        private void Form4_Load(object sender, EventArgs e)
-        {
-            // "ManualZoomP" window
         }
 
         /*for individual text boxes to properly display results when user inputs numbers*/

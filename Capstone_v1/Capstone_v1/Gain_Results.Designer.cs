@@ -129,7 +129,6 @@
             this.Controls.Add(this.Gain_Data);
             this.Name = "Gain_Results";
             this.Text = "Gain_Results";
-            this.Load += new System.EventHandler(this.Form3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Gain_Chart)).EndInit();
             this.ResumeLayout(false);
 

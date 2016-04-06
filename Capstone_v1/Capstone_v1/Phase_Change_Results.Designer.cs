@@ -113,7 +113,6 @@
             this.Controls.Add(this.Phase_Change_Data);
             this.Name = "Phase_Change_Results";
             this.Text = "Phase_Change_Results";
-            this.Load += new System.EventHandler(this.Form4_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Phase_Change_Chart)).EndInit();
             this.ResumeLayout(false);
 

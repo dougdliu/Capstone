@@ -87,7 +87,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(148, 26);
             this.textBox1.TabIndex = 4;
-            //this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -96,7 +95,6 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(148, 26);
             this.textBox2.TabIndex = 5;
-            //this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // textBox3
             // 
@@ -105,7 +103,6 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(148, 26);
             this.textBox3.TabIndex = 6;
-            //this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // textBox4
             // 
@@ -114,8 +111,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(148, 26);
             this.textBox4.TabIndex = 7;
-            //this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
-            // 
+            //
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(180, 257);
@@ -138,7 +134,7 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // ManualZoomP
+            // Manual_Zoom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -156,7 +152,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ManualZoomP";
             this.Text = "ManualZoom";
-            this.Load += new System.EventHandler(this.Form4_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

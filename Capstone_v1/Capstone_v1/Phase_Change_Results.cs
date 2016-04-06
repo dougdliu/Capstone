@@ -2,7 +2,8 @@
  * Made for Capstone Project for MFC Systems Fall 2015-Spring 2016
  * Phase_Change_Results Version 1
  * Developed By: Ashley Krueger, Alisha Geis
- */ 
+ * Modified From: Example on CodeAbout.WordPress.com
+ */
 
 using System;
 using System.Collections.Generic;
@@ -41,11 +42,6 @@ namespace Capstone_v1
             //make the plots and data visible immediately.
             view_chart();
             view_data();
-        }
-
-        private void Form4_Load(object sender, EventArgs e)
-        {
-
         }
 
         //When the plot button is clicked again (if the communication is multithreaded and the data
