@@ -1,0 +1,234 @@
+#include "mraa.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <pthread.h>
+#include <math.h>
+
+#define BILLION 1000000000L
+#define THOUSAND 1000L
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+mraa_uart_context uart;
+struct timespec startT;
+__time_t i;
+int stepSize;
+
+/*
+ * This will calculate the phase change of the signal using an interrupt handler.
+ */
+volatile uint64_t diff;
+volatile uint64_t start;
+
+inline uint64_t rdtsc() {
+    uint32_t lo, hi;
+    __asm__ __volatile__ (
+      "xorl %%eax, %%eax\n"
+      "cpuid\n"
+      "rdtsc\n"
+      : "=a" (lo), "=d" (hi)
+      :
+      : "%ebx", "%ecx");
+    return (uint64_t)hi << 32 | lo;
+}
+
+void *sendDataHandler(void *arg)
+{
+	// This thread will send data back to computer periodically until 'E' is sent //
+	mraa_aio_context adc;		// Corresponds to A0 on Arduino breakout board
+	int ret = 0;
+	int ack = 1;
+	char c;
+	char data[45];
+	double dataPoints[3];
+	double frequency, resistance, gain, phaseShift;
+
+	// Initialize ADC to read gain
+	adc = mraa_aio_init(0);
+
+	memset(data, '\0', sizeof(data));
+
+	// Grab the frequency of the data //
+	pthread_mutex_lock(&mutex);
+	resistance = (((stepSize + 0x406) / 1024) * 50000);
+	pthread_mutex_unlock(&mutex);
+	frequency = 2 * M_PI * resistance * pow(10.0, -9.0);
+
+	// Grab the gain of the data //
+	gain = (double)mraa_aio_read_float(adc);
+
+	// Grab the phase shift of data //
+	phaseShift = ((int)diff*2) / THOUSAND; 		// Convert cycles to nanosecond time
+	phaseShift = (frequency * phaseShift) * 360;
+
+	for (;;)
+	{
+		ret = mraa_uart_read(uart, &c, 1);
+		if (ret < 0)
+		{
+			fprintf(stderr, "UART failed to read");
+			break;
+		}
+		if (c == 'N'){ continue; }
+		if (ack == 1)
+		{
+			dataPoints[0] = frequency;
+			dataPoints[1] = gain;
+			dataPoints[2] = phaseShift;
+			//			rng[0] = (float)i;
+			//			rng[1] = (float)i;
+			//			rng[2] = (float)i;
+			sprintf(data, "%.5lf,%.5lf,%.5lf", dataPoints[0], dataPoints[1], dataPoints[2]);
+			printf("%s\n", data);
+			mraa_uart_write(uart, data, sizeof(data));
+			mraa_uart_flush(uart);
+		}
+		ret = mraa_uart_read(uart, &c, 1);
+		if (ret < 0)
+		{
+			fprintf(stderr, "UART failed to read");
+			break;
+		}
+		pthread_mutex_lock(&mutex);
+		if (stepSize == 1018)
+		{
+			mraa_uart_write(uart, "E", 1);	// Call to finish sending data to computer
+			mraa_uart_flush(uart);
+			mraa_uart_stop(uart);	// Stops the Serial Port
+			break;
+		}
+		else
+			break;
+		pthread_mutex_unlock(&mutex);
+	}
+	return 0;
+}
+
+void pulseWidthIntHandlerPos(void *pin)
+{
+	start = rdtsc();
+	//printf("%d\n", (int)diff);
+}
+
+void pulseWidthIntHandlerNeg(void *pin)
+{
+	diff = rdtsc() - start;
+	//printf("%d\n", (int)start);
+}
+
+int main(int argc, char** argv)
+{
+	mraa_uart_context uart;			// UART context
+	mraa_spi_context spi; 			// Set SPI variable
+	mraa_gpio_context pin2, pin3;	// Set up interrupt pin as IO2
+	int i, ret;						// Generic iterator and error return
+	char Handshake[3];				// Handshake buffer to receive the Handshake //
+	char c;
+	char initialBuffer[6][10];		// Buffer for initialization in string
+	//float translatedBuffer[6];		// Buffer for translated initialization values
+
+	// Initialize UART //
+	uart = mraa_uart_init_raw("/dev/ttyGS0");	// Initialize USB Serial Communication
+	if(uart < 0)
+	{
+		fprintf(stderr, "UART failed to setup");
+		return EXIT_FAILURE;
+	}
+	ret = mraa_uart_set_baudrate(uart, 115200);		// Baudrate = 115200 bps
+	mraa_uart_set_mode(uart, 8, 2, 1);			// 8 bits per frame, odd parity, 1 stop bit
+	if (uart == NULL) {
+
+		fprintf(stderr, "UART failed to setup\n");
+		return EXIT_FAILURE;
+	}
+
+	// Initialize SPI
+	spi = mraa_spi_init(1);					// Initialize SPI
+	mraa_spi_mode(spi, MRAA_SPI_MODE1);		// Set SPI mode = 1, CPOL = 0, CPHA = 1
+	mraa_spi_frequency(spi, 20000000);		// Set SPI frequency = 20MHz
+	mraa_spi_lsbmode(spi, 0);				// Set to MSBFIRST
+	mraa_spi_bit_per_word(spi, 16);			// Set bit per word to be 16 bits
+
+	// Initialize Interrupt Handler
+	pin2 = mraa_gpio_init(2);
+	pin3 = mraa_gpio_init(3);
+	mraa_gpio_dir(pin2, MRAA_GPIO_IN);
+	mraa_gpio_dir(pin3, MRAA_GPIO_IN);
+	mraa_gpio_isr(pin2, MRAA_GPIO_EDGE_RISING, &pulseWidthIntHandlerPos, pin2);
+	mraa_gpio_isr(pin3, MRAA_GPIO_EDGE_FALLING, &pulseWidthIntHandlerNeg, pin3);
+
+	for(;;)
+	{
+		memset(Handshake, '\0', sizeof(Handshake));
+		for(i = 0; i < 6; i++)
+			memset(initialBuffer[i], '\0', sizeof(initialBuffer[i]));
+
+		// This loop checks for a handshake //
+		for(;;)
+		{
+			ret = mraa_uart_read(uart, Handshake, sizeof(Handshake));
+			if(ret < 0)
+			{
+				fprintf(stderr, "UART failed to read");
+				return EXIT_FAILURE;
+			}
+			//printf("%s\n", Handshake);				// Print Handshake buffer for debug purposes
+
+			// Checks if the Handshake is received
+			// If so, then send an acknowledgment back to the computer
+			if(strcmp(Handshake, "HI") == 0)
+			{
+				sprintf(Handshake, "%s%s", Handshake, "U");
+				mraa_uart_write(uart, Handshake, sizeof(Handshake));	// Acknowledges the Handshake sent from the computer
+				mraa_uart_flush(uart);
+				break;
+			}
+		}
+
+		// This loop will read data from the device //
+		i = 0;
+		for(;;)
+		{
+			ret = mraa_uart_read(uart, initialBuffer[i], sizeof(initialBuffer[i]));
+			if(ret < 0)
+			{
+				fprintf(stderr, "UART failed to read");
+				return EXIT_FAILURE;
+			}
+			//printf("%s\n", initialBuffer[i]);				// Print initial buffer incoming data for debug purposes
+
+			// Checks if the buffer is received is received
+			// If so, then send an acknowledgment back to the computer
+			sprintf(&c, "%d", i);
+			if(strncmp(initialBuffer[i], &c, 1) == 0)
+			{
+				mraa_uart_write(uart, "Y", 1);	// Acknowledges the Handshake sent from the computer
+				mraa_uart_flush(uart);
+				i++;
+				if(i == 6)
+					break;
+			}
+		}
+
+		// Setup SPI Potentiometer
+		mraa_spi_write_word(spi, 0x1802);				// Enable update of digipot wiper position
+		mraa_spi_write_word(spi, 0x0400);				// Set digipot to 1/4th of its value
+		for (stepSize = 0; stepSize < 1018; i++)
+		{
+			usleep(100000);
+			mraa_spi_write_word(spi, 0x0406);				// Set digipot to 1/4th of its value
+		}
+		mraa_spi_stop(spi);
+
+		// Debug print to see if received float is indeed the float that we want //
+	//	for(i = 0; i < 6; i++)
+	//	{
+	//		translatedBuffer[i] = atof(initialBuffer[i]+1);
+	//		printf("%f\n", translatedBuffer[i]);
+	//	}
+
+		mraa_uart_stop(uart);	// Stops the Serial Port
+	}
+	mraa_deinit();			// De-Initialize Stuff
+	return EXIT_SUCCESS;	// Returns the program
+}
