@@ -2,7 +2,7 @@
  * Made for Capstone Project for MFC Systems Fall 2015-Spring 2016
  * Communications Version 1
  * Developed By: Alexander Enriquez
- */ 
+ */
 
 using System;
 using System.IO.Ports;  // For Serial Communication //
@@ -14,7 +14,7 @@ public class Communications
     private bool tryAgain;
     public string output;
 
-	public Communications() 
+	public Communications()
 	{
         // Initialization of Serial Communication Interfaces //
         serial = new SerialPort();
@@ -34,6 +34,8 @@ public class Communications
 
 	}
 
+// Used to intitiate communication with the micontroller with the EIS module
+//
     public bool HandShake(string hndShk)
     {
         byte[] hsResp = new byte[3];
@@ -72,6 +74,10 @@ public class Communications
             return false;
         }
     }
+
+    // Used to send data to the microcontroller.
+    // Initially, for transmitting user specified values
+    // i.e. Sweep rate, starting and ending frequency, voltage input, DC OFFST, linear vs logarithmic
     public bool Transmit(string dataOut)
     {
         byte[] resp = new byte[1];
@@ -79,15 +85,18 @@ public class Communications
         serial.Open();
         while (tryAgain)
         {
+          // Attempt to send data
             try
             {
                 serial.Write(dataOut);
             }
+            // Timeout if the data fails to send
             catch (TimeoutException)
             {
                 Console.WriteLine("Write timeout occured");
             }
             Thread.Sleep(100);
+            // Wait for acknowledgment from microcontroller in the form of "Y"
             try
             {
                 serial.Read(resp, 0, 1);
@@ -99,11 +108,18 @@ public class Communications
             catch (TimeoutException)
             {
                 //Console.WriteLine("Read timeout occured");
+                //Should add a counter under the conditions of continual failure
+                //Currently at risk of an inifite loop
             }
         }
         serial.Close();
         return true;
     }
+
+
+    // Used to read in data from the micrcontroller
+    // Sends in an inital dummy data to begin, "N"
+    // Stores the string value calculated into output data member of Communications.
     public void ReadIn()
     {
         byte[] dataIn = new byte[45];
@@ -122,6 +138,8 @@ public class Communications
                 serial.Close();
                 continue;
             }
+
+            /* Value Read In */
             while (tryAgain)
             {
                 Thread.Sleep(10);
@@ -132,7 +150,7 @@ public class Communications
                 }
                 catch (TimeoutException)
                 {
-                    //Console.WriteLine("Read timeout occured"); 
+                    //Console.WriteLine("Read timeout occured");
                 }
                 Thread.Sleep(10);
                 try
