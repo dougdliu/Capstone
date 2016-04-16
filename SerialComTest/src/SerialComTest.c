@@ -1,3 +1,12 @@
+//SerialComTest.c
+/*
+		This file is used by the Edison to commmunicate with the software serially through UART.
+		It goes through 4 stages, connection initialization, handhsake, data reception, and data transmission.
+		As written, this code will transmit dummy data to the software to simulate the phase change and voltage gain
+		values teh EIS module would produce.
+*/
+
+
 #include "mraa.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,6 +16,9 @@
 int main(int argc, char** argv)
 {
 
+	// initialization		//
+	/*		Using the mraa_uart_context, the baudrate is set to 115200 bps, the frame size to 8 bits, and
+			and odd parity is started with 1 stop bit. */
 
 	mraa_uart_context uart;						// UART context
 	int i, ret;									// Generic iterator and error return
@@ -30,11 +42,14 @@ int main(int argc, char** argv)
 	char c;
 	char initialBuffer[6][10];	// Buffer for initialization in string
 	float translatedBuffer[6];	// Buffer for translated initialization values
+
 	memset(Handshake, '\0', sizeof(Handshake));
 	for (i = 0; i < 6; i++)
-		memset(initialBuffer[i], '\0', sizeof(initialBuffer[i]));
+		memset(initialBuffer[i], '\0', sizeof(initialBuffer[i]));	//Fills the buffer with null terminaters
 
 	// This loop checks for a handshake //
+	/* Expects to recieve a string "HI" from the serial connection.
+			Upon such reception, a reply is sent back "HIU" */
 	for (;;)
 	{
 		ret = mraa_uart_read(uart, Handshake, sizeof(Handshake));
@@ -57,6 +72,17 @@ int main(int argc, char** argv)
 	}
 
 	// This loop will read data from the device //
+	/* Expects to read in from the serial connect 6 times, the size of
+			the initlialBuffer array. The strings read in are stored into
+			this array. These will be the values for Starting and Ending Frequency,
+			Sweep Rate, Voltage Offset, Voltage Amplitutde, and whether to operate
+			on linear or exponetial mode.
+
+			Replies to the serial connection with a "Y" upon succesful reception
+			and storage.
+
+			Breaks after the 6 reception.
+				*/
 	i = 0;
 	for (;;)
 	{
@@ -68,7 +94,7 @@ int main(int argc, char** argv)
 		}
 		//printf("%s\n", initialBuffer[i]);				// Print initial buffer incoming data for debug purposes
 
-		// Checks if the buffer is received is received
+		// Checks if the buffer is received
 		// If so, then send an acknowledgment back to the computer
 		sprintf(&c, "%d", i);
 		if (strncmp(initialBuffer[i], &c, 1) == 0)
@@ -88,7 +114,19 @@ int main(int argc, char** argv)
 	//		printf("%f\n", translatedBuffer[i]);
 	//	}
 
+
 	// This loop will send data back to computer periodically until 'E' is sent //
+	/* This portion currently generates randomly seeded data to be sent to simulate
+	  	the frequency, phase change, and voltage gain values that EIS module will
+			be producing.
+
+			Does not send data until the Serial Com is ready to recieve. This is denoted
+			by recieving a 'N'. The Edison will continuing reading from the Serial
+			port until a read 'N' is recieved. Then will send out a randomly generated
+			triplet of float values.
+
+			The Software on the otherside of the Serial connection expects an "E" to
+			stop listening to the Serial connection.*/
 	i = 0;
 	srand((unsigned int)time(NULL));	// Seed for random number generator
 	float num = 4.0;
