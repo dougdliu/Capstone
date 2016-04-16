@@ -1,9 +1,9 @@
 //SerialComTest.c
 /*
-		This file is used by the Edison to commmunicate with the software serially through UART.
-		It goes through 4 stages, connection initialization, handhsake, data reception, and data transmission.
+		This file is used by the Edison to communicate with the software serially through UART.
+		It goes through 4 stages, connection initialization, handshake, data reception, and data transmission.
 		As written, this code will transmit dummy data to the software to simulate the phase change and voltage gain
-		values teh EIS module would produce.
+		values the EIS module would produce.
 */
 
 
@@ -17,8 +17,8 @@ int main(int argc, char** argv)
 {
 
 	// initialization		//
-	/*		Using the mraa_uart_context, the baudrate is set to 115200 bps, the frame size to 8 bits, and
-			and odd parity is started with 1 stop bit. */
+	/*		Using the mraa_uart_context, the baudrate is set to 115200 bps, the frame size to 8 bits,
+			and odd parity is set, with 1 stop bit. */
 
 	mraa_uart_context uart;						// UART context
 	int i, ret;									// Generic iterator and error return
@@ -75,13 +75,13 @@ int main(int argc, char** argv)
 	/* Expects to read in from the serial connect 6 times, the size of
 			the initlialBuffer array. The strings read in are stored into
 			this array. These will be the values for Starting and Ending Frequency,
-			Sweep Rate, Voltage Offset, Voltage Amplitutde, and whether to operate
-			on linear or exponetial mode.
+			Sweep Rate, Voltage Offset, Voltage Amplitude, and whether to operate
+			on linear or exponential mode.
 
-			Replies to the serial connection with a "Y" upon succesful reception
+			Replies to the serial connection with a "Y" upon successful reception
 			and storage.
 
-			Breaks after the 6 reception.
+			Breaks after the sixth storage reception.
 				*/
 	i = 0;
 	for (;;)
@@ -115,14 +115,14 @@ int main(int argc, char** argv)
 	//	}
 
 
-	// This loop will send data back to computer periodically until 'E' is sent //
-	/* This portion currently generates randomly seeded data to be sent to simulate
-	  	the frequency, phase change, and voltage gain values that EIS module will
+	// This loop will send data back to computer periodically, terminating with an 'E' being sent //
+	/* This code portion currently generates randomly seeded data to be sent to simulate
+	  	the frequency, phase change, and voltage gain values that the EIS module will
 			be producing.
 
-			Does not send data until the Serial Com is ready to recieve. This is denoted
-			by recieving a 'N'. The Edison will continuing reading from the Serial
-			port until a read 'N' is recieved. Then will send out a randomly generated
+			Does not send data until the Serial Com is ready to receive. This is denoted
+			by receiving a 'N'. The Edison will continuing reading from the Serial
+			port until a read 'N' is received. Then will send out a randomly generated
 			triplet of float values.
 
 			The Software on the otherside of the Serial connection expects an "E" to
