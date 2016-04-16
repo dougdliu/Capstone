@@ -1,3 +1,10 @@
+// FirmwareTesting.c       //
+/*  This program test several components integral to the operation of the EIS device
+    associated with the Edison Microctronller: Phase Change Calculation, Voltage Gain
+    acquisiton, and Data Reception, Pontitometer Sweeping and Data Transmission
+*/
+
+
 #include "mraa.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,6 +20,8 @@ mraa_uart_context uart;
 struct timespec startT;
 __time_t i;
 int stepSize;
+
+
 
 /*
  * This will calculate the phase change of the signal using an interrupt handler.
@@ -32,6 +41,16 @@ inline uint64_t rdtsc() {
     return (uint64_t)hi << 32 | lo;
 }
 
+
+//  SendData Hanlder  //
+/*		Does not send data until the Serial Com is ready to receive. This is denoted
+			by receiving a 'N' from the com. The Edison will continuing reading from the Serial
+			port until a read 'N' is received. Then will send out generated values for frequency,
+      gain, and phase shift.
+
+			The Software on the otherside of the Serial connection expects an "E" to
+			stop listening to the Serial connection.
+*/
 void *sendDataHandler(void *arg)
 {
 	// This thread will send data back to computer periodically until 'E' is sent //
@@ -61,6 +80,7 @@ void *sendDataHandler(void *arg)
 	phaseShift = ((int)diff*2) / THOUSAND; 		// Convert cycles to nanosecond time
 	phaseShift = (frequency * phaseShift) * 360;
 
+  // Data Transmit Out Loop//
 	for (;;)
 	{
 		ret = mraa_uart_read(uart, &c, 1);
@@ -75,9 +95,7 @@ void *sendDataHandler(void *arg)
 			dataPoints[0] = frequency;
 			dataPoints[1] = gain;
 			dataPoints[2] = phaseShift;
-			//			rng[0] = (float)i;
-			//			rng[1] = (float)i;
-			//			rng[2] = (float)i;
+
 			sprintf(data, "%.5lf,%.5lf,%.5lf", dataPoints[0], dataPoints[1], dataPoints[2]);
 			printf("%s\n", data);
 			mraa_uart_write(uart, data, sizeof(data));
@@ -104,18 +122,29 @@ void *sendDataHandler(void *arg)
 	return 0;
 }
 
+
+//Takes a time measurement, called on a positive edge trigger
 void pulseWidthIntHandlerPos(void *pin)
 {
 	start = rdtsc();
 	//printf("%d\n", (int)diff);
 }
 
+
+//Calculates time between previous postive edge trigger
 void pulseWidthIntHandlerNeg(void *pin)
 {
 	diff = rdtsc() - start;
 	//printf("%d\n", (int)start);
 }
 
+
+
+
+
+// main//
+/* Initialize UART, SPI, the TransmitOut interrupt handler, handshake, Initial Read in,
+      and Pontiostat set up and running*/
 int main(int argc, char** argv)
 {
 	mraa_uart_context uart;			// UART context
@@ -157,6 +186,9 @@ int main(int argc, char** argv)
 	mraa_gpio_isr(pin2, MRAA_GPIO_EDGE_RISING, &pulseWidthIntHandlerPos, pin2);
 	mraa_gpio_isr(pin3, MRAA_GPIO_EDGE_FALLING, &pulseWidthIntHandlerNeg, pin3);
 
+  // Wait for Handshake //
+  /* Expects to recieve a string "HI" from the serial connection.
+      Upon such reception, a reply is sent back "HIU" */
 	for(;;)
 	{
 		memset(Handshake, '\0', sizeof(Handshake));
@@ -185,7 +217,18 @@ int main(int argc, char** argv)
 			}
 		}
 
-		// This loop will read data from the device //
+    // This loop will read data from the device for EIS Test Initialization //
+    /* Expects to read in from the serial connect 6 times, the size of
+        the initlialBuffer array. The strings read in are stored into
+        this array. These will be the values for Starting and Ending Frequency,
+        Sweep Rate, Voltage Offset, Voltage Amplitude, and whether to operate
+        on linear or exponential mode.
+
+        Replies to the serial connection with a "Y" upon successful reception
+        and storage.
+
+        Breaks after the sixth storage reception.
+    */
 		i = 0;
 		for(;;)
 		{
@@ -213,6 +256,8 @@ int main(int argc, char** argv)
 		// Setup SPI Potentiometer
 		mraa_spi_write_word(spi, 0x1802);				// Enable update of digipot wiper position
 		mraa_spi_write_word(spi, 0x0400);				// Set digipot to 1/4th of its value
+
+    //Pontentiometer Sweep
 		for (stepSize = 0; stepSize < 1018; i++)
 		{
 			usleep(100000);
