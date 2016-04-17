@@ -15,6 +15,7 @@
 
 #define BILLION 1000000000L
 #define THOUSAND 1000L
+#define FINALSTEP 1018
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 mraa_uart_context uart;
 struct timespec startT;
@@ -108,7 +109,7 @@ void *sendDataHandler(void *arg)
 			break;
 		}
 		pthread_mutex_lock(&mutex);
-		if (stepSize == 1018)
+		if (stepSize == FINALSTEP)
 		{
 			mraa_uart_write(uart, "E", 1);	// Call to finish sending data to computer
 			mraa_uart_flush(uart);
@@ -258,10 +259,10 @@ int main(int argc, char** argv)
 		mraa_spi_write_word(spi, 0x0400);				// Set digipot to 1/4th of its value
 
     //Pontentiometer Sweep
-		for (stepSize = 0; stepSize < 1018; i++)
+		for (stepSize = 0; stepSize < FINALSTEP; stepSize++)
 		{
 			usleep(100000);
-			mraa_spi_write_word(spi, 0x0406);				// Set digipot to 1/4th of its value
+			mraa_spi_write_word(spi, 0x0406 + stepSize);				// Set digipot to 1/4th of its value
 		}
 		mraa_spi_stop(spi);
 
