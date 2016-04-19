@@ -14,6 +14,8 @@
 #include <math.h>
 
 #define ALPHA 0.3f
+#define THOUSAND 1000L
+#define FINALSTEP 1018L
 pthread_t sendData;					// Global sendData handler thread
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;	// Pthread mutex
 mraa_uart_context uart;					// uart context
@@ -22,8 +24,8 @@ int stepSize;
 /*
  * This will calculate the phase change of the signal using an interrupt handler.
  */
-volatile uint64_t diff;
-volatile uint64_t start;
+volatile uint64_t diff, start, oldV = 0, newV = 0;
+volatile uint64_t start, counter;
 
 inline uint64_t rdtsc() {
     uint32_t lo, hi;
@@ -132,7 +134,7 @@ void pulseWidthIntHandlerPos(void *pin)
 void pulseWidthIntHandlerNeg(void *pin)
 {
 	uint64_t tempT = 0;			// Temporary Time for sending stuff
-	
+
 	diff = rdtsc() - start;
 	if(oldV = 0)
 	{
